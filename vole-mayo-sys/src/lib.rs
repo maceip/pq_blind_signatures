@@ -57,11 +57,12 @@ mod vole_proof_test_mayo {
         usize,
         *const u8,
         usize,
+        *mut u8,
     ) -> bool;
 
     #[test]
     fn test_binding() {
-        let param_getters: [GetParamsFn; 8] = [
+        let param_getters: [GetParamsFn; 12] = [
             get_mayo128sv1_parameters,
             get_mayo128fv1_parameters,
             get_mayo192sv1_parameters,
@@ -75,7 +76,7 @@ mod vole_proof_test_mayo {
             get_mayo256sv2_parameters,
             get_mayo256fv2_parameters,
         ];
-        let prove_functions: [ProveFn; 8] = [
+        let prove_functions: [ProveFn; 12] = [
             mayo128sv1_prove_1,
             mayo128fv1_prove_1,
             mayo192sv1_prove_1,
@@ -144,6 +145,7 @@ mod vole_proof_test_mayo {
                 let mut hashed_leaves = vec![0u8; hashed_leaves_size];
                 let mut proof = vec![0u8; proof_size];
                 let random_seed = vec![0u8; random_seed_size];
+                let mut additional_r = vec![0u8, 32];
 
                 // Call the prove function with the buffers and sizes
                 let success = prove_fn(
@@ -165,6 +167,7 @@ mod vole_proof_test_mayo {
                     proof_size,
                     random_seed.as_ptr(),
                     random_seed_size,
+                    additional_r.as_mut_ptr(),
                 );
 
                 assert!(success, "Prove function failed!");
