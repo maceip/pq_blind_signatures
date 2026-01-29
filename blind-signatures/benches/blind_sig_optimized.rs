@@ -71,7 +71,7 @@ fn bench_sign3(c: &mut Criterion) {
     let mut group = c.benchmark_group("bench_sign3_optimized");
 
     let m = b"Hello World!".to_vec();
-    let mut additional_r: [u8; 32] = [0xff; 32];
+    let additional_r: [u8; 32] = [0xff; 32];
 
     for zktype in VARIANTS {
         let id = BenchmarkId::from_parameter(format!(
@@ -105,7 +105,7 @@ fn bench_verify(c: &mut Criterion) {
     let mut group = c.benchmark_group("bench_verify_optimized");
 
     let m = b"Hello World!".to_vec();
-    let mut additional_r: [u8; 32] = [0xff; 32];
+    let additional_r: [u8; 32] = [0xff; 32];
 
     for zktype in VARIANTS {
         let id = BenchmarkId::from_parameter(format!(

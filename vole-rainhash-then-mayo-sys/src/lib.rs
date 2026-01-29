@@ -11,7 +11,7 @@ mod test_rain {
 
     #[test]
     fn test_rain() {
-        let input = vec![17; 64];
+        let input = [17; 64];
         let mut output = vec![0; 64];
         unsafe {
             rain_hash_512_7_c(
