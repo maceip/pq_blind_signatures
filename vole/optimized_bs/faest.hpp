@@ -29,12 +29,13 @@ bool vole_prove_1(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_
                     const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
 
 template <typename P>
-bool vole_prove_2(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, faest::block128* iv_pre, size_t iv_pre_size,
-                        faest::block_secpar<P::secpar_v>* forest, unsigned char* hashed_leaves, 
-                        uint8_t* packed_pk, const uint8_t* packed_sk);
+bool vole_prove_2(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, 
+                        faest::block128* iv_pre, size_t iv_pre_size, faest::block_secpar<P::secpar_v>* forest, 
+                        unsigned char* hashed_leaves, uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 
 template <typename P>
-bool vole_verify(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size);
+bool vole_verify(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
+
 
 } // namespace faest
 

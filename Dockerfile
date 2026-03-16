@@ -6,12 +6,13 @@
 # sudo docker run -it --rm pq_blind_signatures:latest /bin/bash
 # cd pq_blind_signatures
 
-# ./bench_conservative_bs.sh (optional 3# to copy results to host or just use some text editor in docker)
+# ./bench_conservative_bs.sh
 # ./bench_conservative_deg16_bs.sh
 # ./bench_optimized_bs.sh
 # ./bench_rainhash_bs.sh
 # ./bench_all_bs.sh
 
+# (optional 3# to copy results to host or just use some text editor in docker)
 # 3# In a separate terminal
 # sudo docker ps (get the container ID, something like e08112f17205)
 # docker cp e08112f17205:pq_blind_signatures/bench_log.txt ./bench_log.txt

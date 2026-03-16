@@ -8,7 +8,7 @@ chmod +x clean.sh
 ./clean.sh 
 chmod +x build_consv_bs_keccak.sh
 
-./build_consv_bs_keccak.sh >> ../bench_log_misc.txt 2>&1
+./build_consv_bs_keccak.sh > ../bench_log_misc.txt 2>&1
 cd ..
 cd vole-keccak-then-mayo-sys
 cargo clean

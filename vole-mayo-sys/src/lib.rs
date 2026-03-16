@@ -8,13 +8,18 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 #[cfg(test)]
 mod vole_proof_test_mayo {
     use crate::{
-        get_mayo128fv1_parameters, get_mayo128fv2_parameters, get_mayo128sv1_parameters,
-        get_mayo128sv2_parameters, get_mayo192fv1_parameters, get_mayo192fv2_parameters,
-        get_mayo192sv1_parameters, get_mayo192sv2_parameters, get_mayo256fv1_parameters,
-        get_mayo256fv2_parameters, get_mayo256sv1_parameters, get_mayo256sv2_parameters,
-        mayo128fv1_prove_1, mayo128fv2_prove_1, mayo128sv1_prove_1, mayo128sv2_prove_1,
-        mayo192fv1_prove_1, mayo192fv2_prove_1, mayo192sv1_prove_1, mayo192sv2_prove_1,
-        mayo256fv1_prove_1, mayo256fv2_prove_1, mayo256sv1_prove_1, mayo256sv2_prove_1,
+        get_mayo128fv1_parameters,  
+        get_mayo128sv1_parameters,
+        get_mayo192fv1_parameters, 
+        get_mayo192sv1_parameters, 
+        get_mayo256fv1_parameters,
+        get_mayo256sv1_parameters, 
+        mayo128fv1_prove_1, 
+        mayo128sv1_prove_1, 
+        mayo192fv1_prove_1, 
+        mayo192sv1_prove_1, 
+        mayo256fv1_prove_1, 
+        mayo256sv1_prove_1, 
     };
 
     type GetParamsFn = unsafe extern "C" fn(
@@ -62,33 +67,21 @@ mod vole_proof_test_mayo {
 
     #[test]
     fn test_binding() {
-        let param_getters: [GetParamsFn; 12] = [
+        let param_getters: [GetParamsFn; 6] = [
             get_mayo128sv1_parameters,
             get_mayo128fv1_parameters,
             get_mayo192sv1_parameters,
             get_mayo192fv1_parameters,
             get_mayo256sv1_parameters,
             get_mayo256fv1_parameters,
-            get_mayo128sv2_parameters,
-            get_mayo128fv2_parameters,
-            get_mayo192sv2_parameters,
-            get_mayo192fv2_parameters,
-            get_mayo256sv2_parameters,
-            get_mayo256fv2_parameters,
         ];
-        let prove_functions: [ProveFn; 12] = [
+        let prove_functions: [ProveFn; 6] = [
             mayo128sv1_prove_1,
             mayo128fv1_prove_1,
             mayo192sv1_prove_1,
             mayo192fv1_prove_1,
             mayo256sv1_prove_1,
             mayo256fv1_prove_1,
-            mayo128sv2_prove_1,
-            mayo128fv2_prove_1,
-            mayo192sv2_prove_1,
-            mayo192fv2_prove_1,
-            mayo256sv2_prove_1,
-            mayo256fv2_prove_1,
         ];
         for (get_params, prove_fn) in param_getters.iter().zip(prove_functions.iter()) {
             println!("start next round");

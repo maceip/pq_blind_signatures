@@ -30,7 +30,14 @@ impl VOLEMAYO {
     /// auxilary information and also randomness `r` that can be used to blind messages.
     /// The proof state is also required to continue with `prove_2`.
     pub fn prove_1(&self, additional_r: &mut [u8]) -> VOLEMAYOProofState {
+        
         let mut state = VOLEMAYOProofState::init(&self.vole_mayo_params);
+
+        let random_seed_ptr = if state.random_seed.is_empty() {
+            std::ptr::null()
+        } else {
+            state.random_seed.as_ptr()
+        };
 
         assert!(unsafe {
             (self.vole_mayo_params.prove_1_fn)(
@@ -50,7 +57,7 @@ impl VOLEMAYO {
                 self.vole_mayo_params.hashed_leaves_size,
                 state.proof.as_mut_ptr(),
                 self.vole_mayo_params.proof_size,
-                state.random_seed.as_ptr(),
+                random_seed_ptr,
                 self.vole_mayo_params.random_seed_size,
                 additional_r.as_mut_ptr(),
             )

@@ -1,19 +1,13 @@
 use blind_signatures::{blind_sig_optimized::BlindSignatureOptimized, zk::ZKType};
 use criterion::{BatchSize, BenchmarkId, Criterion, criterion_group, criterion_main};
 
-pub const VARIANTS: [ZKType; 1] = [
+pub const VARIANTS: [ZKType; 6] = [
     ZKType::FV1_128,
-    // ZKType::FV1_192,
-    // ZKType::FV1_256,
-    // ZKType::FV2_128,
-    // ZKType::FV2_192,
-    // ZKType::FV2_256,
-    // ZKType::SV1_128,
-    // ZKType::SV1_192,
-    // ZKType::SV1_256,
-    // ZKType::SV2_128,
-    // ZKType::SV2_192,
-    // ZKType::SV2_256,
+    ZKType::FV1_192,
+    ZKType::FV1_256,
+    ZKType::SV1_128,
+    ZKType::SV1_192,
+    ZKType::SV1_256,
 ];
 
 fn bench_sign1(c: &mut Criterion) {

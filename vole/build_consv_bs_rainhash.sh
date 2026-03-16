@@ -126,7 +126,6 @@ cp -r "$RAINHASH_PLAIN_DIR" "$RAINHASH_PLAIN_DESTINATION"
 export SHAREDLIBNAME="consv_bs_rainhash"
 export ARFLAGS=rcs
 cd faest-cpp-tmp
-# meson setup build_debug --buildtype=debug -Db_sanitize=address
 # meson setup build_debug --buildtype=debug
 meson setup build_debug --buildtype=release
 cd build_debug

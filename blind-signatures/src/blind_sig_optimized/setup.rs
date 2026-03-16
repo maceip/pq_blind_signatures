@@ -28,15 +28,9 @@ impl BlindSignatureOptimized {
             ZKType::FV1_128 => MAYOParameterSet::MAYO1,
             ZKType::FV1_192 => MAYOParameterSet::MAYO3,
             ZKType::FV1_256 => MAYOParameterSet::MAYO5,
-            ZKType::FV2_128 => MAYOParameterSet::MAYO1,
-            ZKType::FV2_192 => MAYOParameterSet::MAYO3,
-            ZKType::FV2_256 => MAYOParameterSet::MAYO5,
             ZKType::SV1_128 => MAYOParameterSet::MAYO1,
             ZKType::SV1_192 => MAYOParameterSet::MAYO3,
             ZKType::SV1_256 => MAYOParameterSet::MAYO5,
-            ZKType::SV2_128 => MAYOParameterSet::MAYO1,
-            ZKType::SV2_192 => MAYOParameterSet::MAYO3,
-            ZKType::SV2_256 => MAYOParameterSet::MAYO5,
         };
         Self {
             mayo: MAYO::setup(mayo_param),

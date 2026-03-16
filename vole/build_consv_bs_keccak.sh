@@ -122,7 +122,6 @@ cp "$FAEST_H_SOURCE_FILE" "$FAEST_H_DESTINATION"
 export SHAREDLIBNAME="volekeccak_then_mayo_bs"
 export ARFLAGS=rcs
 cd faest-cpp-tmp
-# meson setup build_debug --buildtype=debug -Db_sanitize=address
 # meson setup build_debug --buildtype=debug
 meson setup build_debug --buildtype=release
 cd build_debug
