@@ -1,5 +1,3 @@
-#define WITH_KECCAK
-#define PLUS_MAYO
 #ifndef PARAMETERS_HPP
 #define PARAMETERS_HPP
 
@@ -27,11 +25,12 @@ constexpr std::size_t secpar_to_bits(secpar s) { return std::to_underlying(s); }
 constexpr std::size_t secpar_to_bytes(secpar s) { return secpar_to_bits(s) / 8; }
 
 
-// ############# MAYO PARAMTERS ##############
+
 // General params
 constexpr std::size_t VOLEMAYO_BIN_FIELD_SIZE = 4;
 constexpr std::size_t VOLEMAYO_FIELD_IN_UINT8 = 8/VOLEMAYO_BIN_FIELD_SIZE;
 constexpr std::size_t VOLEMAYO_MOD = (1 << VOLEMAYO_BIN_FIELD_SIZE) | 2 | 1; // modulus=x^4 + x + 1 00010011
+
 // Sec Lvl specific params
 constexpr std::size_t VOLEMAYO_N_L1 = 86;
 constexpr std::size_t VOLEMAYO_M_L1 = 78;
@@ -43,7 +42,7 @@ constexpr std::size_t VOLEMAYO_DIGEST_BYTES_L1 = 32;
 constexpr std::size_t VOLEMAYO_PK_SEED_BYTES_L1 = 16;       // seed expands to the full pk
 constexpr std::size_t VOLEMAYO_R_BITS_L1 = VOLEMAYO_BIN_FIELD_SIZE * VOLEMAYO_M_L1;    // witness r bits
 constexpr std::size_t VOLEMAYO_S_BITS_L1 = VOLEMAYO_BIN_FIELD_SIZE * VOLEMAYO_K_L1 * VOLEMAYO_N_L1;  // witness s bits
-constexpr std::size_t VOLEMAYO_WITNESS_SIZE_BITS_L1 = VOLEMAYO_S_BITS_L1;        // r + s bits
+constexpr std::size_t VOLEMAYO_WITNESS_SIZE_BITS_L1 = VOLEMAYO_R_BITS_L1 + VOLEMAYO_S_BITS_L1;        // r + s bits
 constexpr std::size_t VOLEMAYO_COMMIT_MU_SIZE_BYTES_L1 = 16;
 
 constexpr std::size_t VOLEMAYO_N_L3 = 118;       // NOTE: In the spec, it is 99!, we set to 100 such that witness b is divisible by 8
@@ -57,7 +56,7 @@ constexpr std::size_t VOLEMAYO_DIGEST_BYTES_L3 = 48;
 constexpr std::size_t VOLEMAYO_PK_SEED_BYTES_L3 = 16;       // seed expands to the full pk
 constexpr std::size_t VOLEMAYO_R_BITS_L3 = VOLEMAYO_BIN_FIELD_SIZE * VOLEMAYO_M_L3;    // witness r bits
 constexpr std::size_t VOLEMAYO_S_BITS_L3 = VOLEMAYO_BIN_FIELD_SIZE * VOLEMAYO_K_L3 * VOLEMAYO_N_L3;  // witness s bits
-constexpr std::size_t VOLEMAYO_WITNESS_SIZE_BITS_L3 = VOLEMAYO_S_BITS_L3;        // r + s bits
+constexpr std::size_t VOLEMAYO_WITNESS_SIZE_BITS_L3 = VOLEMAYO_R_BITS_L3 + VOLEMAYO_S_BITS_L3;        // r + s bits
 constexpr std::size_t VOLEMAYO_COMMIT_MU_SIZE_BYTES_L3 = 24;
 
 constexpr std::size_t VOLEMAYO_N_L5 = 154;
@@ -70,14 +69,12 @@ constexpr std::size_t VOLEMAYO_DIGEST_BYTES_L5 = 64;
 constexpr std::size_t VOLEMAYO_PK_SEED_BYTES_L5 = 16;       // seed expands to the full pk
 constexpr std::size_t VOLEMAYO_R_BITS_L5 = VOLEMAYO_BIN_FIELD_SIZE * VOLEMAYO_M_L5;    // witness r bits
 constexpr std::size_t VOLEMAYO_S_BITS_L5 = VOLEMAYO_BIN_FIELD_SIZE * VOLEMAYO_K_L5 * VOLEMAYO_N_L5;  // witness s bits
-constexpr std::size_t VOLEMAYO_WITNESS_SIZE_BITS_L5 = VOLEMAYO_S_BITS_L5;        // r + s bits
+constexpr std::size_t VOLEMAYO_WITNESS_SIZE_BITS_L5 = VOLEMAYO_R_BITS_L5 + VOLEMAYO_S_BITS_L5;        // r + s bits
 constexpr std::size_t VOLEMAYO_COMMIT_MU_SIZE_BYTES_L5 = 32;
 constexpr std::array<uint8_t, 4> VOLEMAYO_F_TAIL_64 = {8, 0, 2, 8};
 constexpr std::array<uint8_t, 4> VOLEMAYO_F_TAIL_78 = {8, 1, 1, 0};
 constexpr std::array<uint8_t, 4> VOLEMAYO_F_TAIL_108 = {8, 0, 1, 7};
 constexpr std::array<uint8_t, 4> VOLEMAYO_F_TAIL_142 = {4, 0, 8, 1};
-template <secpar S>
-constexpr std::array VOLEMAYO_F_TAIL = (secpar_to_bytes(S) == 16? VOLEMAYO_F_TAIL_78: secpar_to_bytes(S) == 24? VOLEMAYO_F_TAIL_108 : VOLEMAYO_F_TAIL_142);
 
 // Elem size params
 template <secpar S>
@@ -89,33 +86,40 @@ constexpr std::size_t VOLEMAYO_M = secpar_to_bytes(S) == 16 ? VOLEMAYO_M_L1 :
 template <secpar S>
 constexpr std::size_t VOLEMAYO_O = secpar_to_bytes(S) == 16 ? VOLEMAYO_O_L1 : 
                                         (secpar_to_bytes(S) == 24 ? VOLEMAYO_O_L3 : VOLEMAYO_O_L5);
+
+template <secpar S>
+constexpr std::size_t VOLEMAYO_V = (VOLEMAYO_N<S> - VOLEMAYO_O<S>);
+
 template <secpar S>
 constexpr std::size_t VOLEMAYO_K = secpar_to_bytes(S) == 16 ? VOLEMAYO_K_L1 : 
                                         (secpar_to_bytes(S) == 24 ? VOLEMAYO_K_L3 : VOLEMAYO_K_L5);
 template <secpar S>
 constexpr std::size_t VOLEMAYO_N_MINUS_O = VOLEMAYO_N<S> - VOLEMAYO_O<S>;
 template <secpar S>
-constexpr std::size_t VOLEMAYO_V = VOLEMAYO_N_MINUS_O<S>;
-template <secpar S>
 constexpr std::size_t VOLEMAYO_Q = secpar_to_bytes(S) == 16 ? VOLEMAYO_Q_L1 : 
-                                        (secpar_to_bytes(S) == 24 ? VOLEMAYO_Q_L3 : VOLEMAYO_Q_L5);                 
+                                        (secpar_to_bytes(S) == 24 ? VOLEMAYO_Q_L3 : VOLEMAYO_Q_L5);
+
+                                        
 // elem size in bits params
+template <secpar S>
+constexpr std::size_t VOLEMAYO_R_BITS = secpar_to_bytes(S) == 16 ? VOLEMAYO_R_BITS_L1 : 
+                                        (secpar_to_bytes(S) == 24 ? VOLEMAYO_R_BITS_L3 : VOLEMAYO_R_BITS_L5);
 template <secpar S>
 constexpr std::size_t VOLEMAYO_S_BITS = secpar_to_bytes(S) == 16 ? VOLEMAYO_S_BITS_L1 : 
                                         (secpar_to_bytes(S) == 24 ? VOLEMAYO_S_BITS_L3 : VOLEMAYO_S_BITS_L5);
+
 // Elem size in bytes params
+
+template <secpar S>
+constexpr std::size_t VOLEMAYO_R_BYTES = (VOLEMAYO_R_BITS<S> + 7) / 8;
 template <secpar S>
 constexpr std::size_t VOLEMAYO_S_BYTES = (VOLEMAYO_S_BITS<S> + 7) / 8;
 template <secpar S>
 constexpr std::size_t VOLEMAYO_SALT_BYTES = secpar_to_bytes(S) == 16 ? VOLEMAYO_SALT_BYTES_L1 : 
                                         (secpar_to_bytes(S) == 24 ? VOLEMAYO_SALT_BYTES_L3 : VOLEMAYO_SALT_BYTES_L5);
 template <secpar S>
-constexpr std::size_t VOLEMAYO_SALT_BITS = VOLEMAYO_SALT_BYTES<S> * 8;
-template <secpar S>
 constexpr std::size_t VOLEMAYO_DIGEST_BYTES = secpar_to_bytes(S) == 16 ? VOLEMAYO_DIGEST_BYTES_L1 : 
                                         (secpar_to_bytes(S) == 24 ? VOLEMAYO_DIGEST_BYTES_L3 : VOLEMAYO_DIGEST_BYTES_L5);
-template <secpar S>
-constexpr std::size_t VOLEMAYO_DIGEST_BITS = VOLEMAYO_DIGEST_BYTES<S> * 8;
 template <secpar S>
 constexpr std::size_t VOLEMAYO_PK_SEED_BYTES = secpar_to_bytes(S) == 16 ? VOLEMAYO_PK_SEED_BYTES_L1 : 
                                         (secpar_to_bytes(S) == 24 ? VOLEMAYO_PK_SEED_BYTES_L3 : VOLEMAYO_PK_SEED_BYTES_L5);
@@ -126,11 +130,13 @@ template <secpar S>
 constexpr std::size_t VOLEMAYO_WITNESS_SIZE_BYTES = (VOLEMAYO_WITNESS_SIZE_BITS<S> + 7)/8;
 
 template <secpar S>
-constexpr std::size_t VOLEMAYO_SECRET_KEY_SIZE_BYTES = VOLEMAYO_WITNESS_SIZE_BYTES<S>;
+constexpr std::size_t VOLEMAYO_SECRET_KEY_SIZE_BYTES = 0;
 
 template <secpar S>
 constexpr std::size_t VOLEMAYO_COMMIT_MU_SIZE_BYTES = (secpar_to_bytes(S) == 16 ? VOLEMAYO_COMMIT_MU_SIZE_BYTES_L1 : 
                                                         (secpar_to_bytes(S) == 24 ? VOLEMAYO_COMMIT_MU_SIZE_BYTES_L3 : VOLEMAYO_COMMIT_MU_SIZE_BYTES_L5));
+
+
 // template <secpar S>
 template <secpar S>
 constexpr std::size_t VOLEMAYO_P1_SIZE_BYTES = (VOLEMAYO_M<S> * (VOLEMAYO_N<S> - VOLEMAYO_O<S>) * (VOLEMAYO_N<S> - VOLEMAYO_O<S>))/VOLEMAYO_FIELD_IN_UINT8;
@@ -151,164 +157,32 @@ constexpr std::size_t VOLEMAYO_P3_SUBMATRIX_ELEM_SIZE = (VOLEMAYO_O<S> * VOLEMAY
 template <secpar S>
 constexpr std::size_t VOLEMAYO_P3_ELEM_SIZE = VOLEMAYO_M<S> * VOLEMAYO_P3_SUBMATRIX_ELEM_SIZE<S>;
 template <secpar S>
-constexpr std::size_t VOLEMAYO_T_SIZE_BYTES = (VOLEMAYO_M<S>) / VOLEMAYO_FIELD_IN_UINT8;
+constexpr std::size_t VOLEMAYO_PROVE_1_H_SIZE_BYTES = (VOLEMAYO_M<S>) / VOLEMAYO_FIELD_IN_UINT8;
 template <secpar S>
-constexpr std::size_t VOLEMAYO_T_ELEM_SIZE = VOLEMAYO_M<S>;
+constexpr std::size_t VOLEMAYO_PROVE_1_H_ELEM_SIZE = VOLEMAYO_M<S>;
 template <secpar S>
 constexpr std::size_t VOLEMAYO_E_SIZE_BYTES = (VOLEMAYO_M<S> * VOLEMAYO_M<S>) / VOLEMAYO_FIELD_IN_UINT8;
-template <secpar S>
-constexpr std::size_t HASHED_MSG_SIZE_BITS = secpar_to_bits(S);
-template <secpar S>
-constexpr std::size_t CPK_SIZE_BITS = secpar_to_bits(S);
-template <secpar S>
-constexpr std::size_t RAND_SIZE_BITS = secpar_to_bits(S);
-template <secpar S>
-constexpr std::size_t RAND_SIZE_BYTES = (RAND_SIZE_BITS<S> + 7) / 8;
-template <secpar S>
-constexpr std::size_t HASHED_MSG_SIZE_BYTES = (HASHED_MSG_SIZE_BITS<S> + 7) / 8;
-// template <secpar S>
-// constexpr std::size_t CPK_SIZE_BYTES = (CPK_SIZE_BITS<S> + 7) / 8;
+
 template <secpar S>
 constexpr std::size_t VOLEMAYO_u64s_per_m_vec = (VOLEMAYO_M<S> + 15) / 16;
+template <secpar S>
+constexpr std::size_t VOLEMAYO_secpar_polys_per_m_vec = (VOLEMAYO_M<S>*4 + secpar_to_bits(S) - 1) / secpar_to_bits(S);
 template <secpar S>
 constexpr std::size_t VOLEMAYO_EXPANDED_PUBLIC_KEY_U64s = ((VOLEMAYO_N<S>*(VOLEMAYO_N<S> + 1)) / 2 * VOLEMAYO_u64s_per_m_vec<S>);
 template <secpar S>
 constexpr std::size_t VOLEMAYO_EXPANDED_PUBLIC_KEY_BYTES = VOLEMAYO_EXPANDED_PUBLIC_KEY_U64s<S> * sizeof(uint64_t);
 template <secpar S>
-// constexpr std::size_t VOLEMAYO_PUBLIC_SIZE_BYTES =  VOLEMAYO_EXPANDED_PUBLIC_KEY_BYTES<S> + CPK_SIZE_BYTES<S> + HASHED_MSG_SIZE_BYTES<S>;
-constexpr std::size_t VOLEMAYO_PUBLIC_SIZE_BYTES =  VOLEMAYO_EXPANDED_PUBLIC_KEY_BYTES<S> + HASHED_MSG_SIZE_BYTES<S>;
-template <secpar S>
-constexpr std::size_t VOLEMAYO_SECRET_SIZE_BYTES = VOLEMAYO_PUBLIC_SIZE_BYTES<S> + VOLEMAYO_S_BYTES<S>;
+constexpr std::size_t VOLEMAYO_PUBLIC_SIZE_BYTES = VOLEMAYO_EXPANDED_PUBLIC_KEY_BYTES<S> + VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>; 
 
-
-#if defined WITH_KECCAK
-// ############# KECCAK PARAMTERS ##############
-constexpr std::size_t VOLEKECCAK_W = 64;
-constexpr uint8_t VOLEKECCAK_PADDING_D = 31;
-constexpr uint8_t VOLEKECCAK_PADDING_0X80 = 128;
-constexpr std::size_t VOLEKECCAK_B = 1600;
-constexpr std::size_t VOLEKECCAK_NUM_ROUNDS = 24;
-constexpr std::size_t VOLEKECCAK_RATE = 1088;
-constexpr std::size_t VOLEKECCAK_RATE_BYTES = (VOLEKECCAK_RATE+7)/8;
-constexpr std::size_t VOLEKECCAK_CAPACITY = VOLEKECCAK_B - VOLEKECCAK_RATE; // 512 bits
-// constexpr std::size_t VOLEKECCAK_PK_OUTPUT_BYTES = (VOLEKECCAK_RATE + 7)/8;
-constexpr std::size_t VOLEKECCAK_PK_OUTPUT_BYTES = 0; // output of keccak is still private for the mayo part
-constexpr std::size_t VOLEKECCAK_PUBLIC_SIZE_BYTES = VOLEKECCAK_PK_OUTPUT_BYTES;  // pk output
-
-#if defined KECCAK_DEG_16
-// 4 rounds forward, 2 rounds backward, contains intermediate witness and the output
-template <secpar S>
-constexpr std::size_t VOLEKECCAK_WITNESS_SIZE_BITS = RAND_SIZE_BITS<S> + (VOLEKECCAK_B*((VOLEKECCAK_NUM_ROUNDS/6)-1) + VOLEKECCAK_B)
-                                                + VOLEKECCAK_B + (VOLEKECCAK_B*((VOLEKECCAK_NUM_ROUNDS/6)-1) + VOLEKECCAK_B); 
-                                                // ^^^^^^^
-                                                // This one is the M_digest and the signature salt  
-#else
-template <secpar S>
-constexpr std::size_t VOLEKECCAK_WITNESS_SIZE_BITS = RAND_SIZE_BITS<S> + (VOLEKECCAK_B*(VOLEKECCAK_NUM_ROUNDS-1) + VOLEKECCAK_B)
-                                                + VOLEKECCAK_B + (VOLEKECCAK_B*(VOLEKECCAK_NUM_ROUNDS-1) + VOLEKECCAK_B);  // the output is never revealed
-                                                // ^^^^^^^
-                                                // This one is the M_digest and the signature salt 
-#endif
-constexpr std::size_t VOLEKECCAK_B_BYTES = (VOLEKECCAK_B + 7)/8;
 
 template <secpar S>
-constexpr std::size_t VOLEKECCAK_WITNESS_SIZE_BYTES = (VOLEKECCAK_WITNESS_SIZE_BITS<S> + 7)/8;
+constexpr std::array VOLEMAYO_F_TAIL = (secpar_to_bytes(S) == 16? VOLEMAYO_F_TAIL_78: secpar_to_bytes(S) == 24? VOLEMAYO_F_TAIL_108 : VOLEMAYO_F_TAIL_142);
+
+template<secpar S>
+constexpr std::size_t VOLEMAYO_F_TAIL_LEN = 4;
 
 template <secpar S>
-constexpr std::size_t VOLEKECCAK_SECRET_SIZE_BYTES = VOLEKECCAK_PUBLIC_SIZE_BYTES + VOLEKECCAK_WITNESS_SIZE_BYTES<S>; 
-// SHA3-256 L1
-constexpr std::size_t VOLEKECCAK_OUTPUT_LEN_BITS_L1 = 256;  // Digest_bytes = 32 bytes
-constexpr std::size_t VOLEKECCAK_COMMIT_MU_SIZE_BYTES_L1 = 16;
-// SHA3-384 L3
-constexpr std::size_t VOLEKECCAK_OUTPUT_LEN_BITS_L3 = 384;  // Digest_bytes = 48 bytes
-constexpr std::size_t VOLEKECCAK_COMMIT_MU_SIZE_BYTES_L3 = 24;
-// SHA3-512 L5
-constexpr std::size_t VOLEKECCAK_OUTPUT_LEN_BITS_L5 = 512;  // Digest_bytes = 64 bytes
-constexpr std::size_t VOLEKECCAK_COMMIT_MU_SIZE_BYTES_L5 = 32;
-template <secpar S>
-constexpr std::size_t VOLEKECCAK_OUTPUT_LEN_BITS = (secpar_to_bytes(S) == 16 ? VOLEKECCAK_OUTPUT_LEN_BITS_L1 : 
-                                                    (secpar_to_bytes(S) == 24 ? VOLEKECCAK_OUTPUT_LEN_BITS_L3 : VOLEKECCAK_OUTPUT_LEN_BITS_L5));
-// NOTE: This is the output len that is actually used further in the protocol, rest from the rate we just ignore, but used in the proof
-template <secpar S>
-constexpr std::size_t VOLEKECCAK_OUTPUT_LEN_BYTES = (VOLEKECCAK_OUTPUT_LEN_BITS<S> + 7)/8;
-template <secpar S>
-constexpr std::size_t VOLEKECCAK_COMMIT_MU_SIZE_BYTES = (secpar_to_bytes(S) == 16 ? VOLEKECCAK_COMMIT_MU_SIZE_BYTES_L1 : 
-                                                        (secpar_to_bytes(S) == 24 ? VOLEKECCAK_COMMIT_MU_SIZE_BYTES_L3 : VOLEKECCAK_COMMIT_MU_SIZE_BYTES_L5));
-
-template <secpar S>                                                
-// constexpr std::size_t VOLEKECCAK_COMMITMENT_INPUT_BYTES = CPK_SIZE_BYTES<S> + HASHED_MSG_SIZE_BYTES<S> + RAND_SIZE_BYTES<S>;
-constexpr std::size_t VOLEKECCAK_COMMITMENT_INPUT_BYTES = HASHED_MSG_SIZE_BYTES<S> + RAND_SIZE_BYTES<S>;
-template <secpar S>
-constexpr std::size_t VOLEKECCAK_MAYO_HASH_INPUT_BYTES =  VOLEMAYO_DIGEST_BYTES<S> + VOLEMAYO_SALT_BYTES<S>;
-#endif
-
-#if defined WITH_RAINHASH
-// ############# RAIN PARAMTERS ##############
-constexpr std::size_t VOLERAINHASH_RC_SIZE_BITS = 64*7 * 8;
-constexpr std::size_t VOLERAINHASH_MAT_SIZE_BITS = 64*512*7 * 8; 
-constexpr std::size_t VOLERAINHASH_RC_SIZE_BYTES = VOLERAINHASH_RC_SIZE_BITS / 8;
-constexpr std::size_t VOLERAINHASH_MAT_SIZE_BYTES = VOLERAINHASH_MAT_SIZE_BITS / 8; 
-
-constexpr std::size_t VOLERAINHASH_SBOX_SIZE = 512;
-constexpr std::size_t VOLERAINHASH_B = 512;
-constexpr std::size_t VOLERAINHASH_B_BYTES = (VOLERAINHASH_B + 7)/8;
-constexpr std::size_t VOLERAINHASH_NUM_ROUNDS = 7;
-constexpr std::size_t VOLERAINHASH_RATE = 512;
-constexpr std::size_t VOLERAINHASH_RATE_BYTES = (VOLERAINHASH_RATE+7)/8;
-constexpr std::size_t VOLERAINHASH_CAPACITY = VOLERAINHASH_B - VOLERAINHASH_RATE; // 256 bits
-constexpr std::size_t VOLERAINHASH_PK_OUTPUT_BYTES = 0; // output of rainhash is still private for the mayo part
-constexpr std::size_t VOLERAINHASH_PUBLIC_SIZE_BYTES = VOLERAINHASH_PK_OUTPUT_BYTES + VOLERAINHASH_RC_SIZE_BYTES + VOLERAINHASH_MAT_SIZE_BYTES;  // pk output
-
-template <secpar S>  
-//                                                       input                  witness                             output
-constexpr std::size_t VOLERAINHASH_WITNESS_SIZE_BITS = VOLERAINHASH_B + VOLERAINHASH_B*(VOLERAINHASH_NUM_ROUNDS) + VOLERAINHASH_B
-//                      input                   witness                             output
-                    + VOLERAINHASH_B + VOLERAINHASH_B*(VOLERAINHASH_NUM_ROUNDS) + VOLERAINHASH_B;
-
-template <secpar S>  
-constexpr std::size_t VOLERAINHASH_WITNESS_SIZE_BYTES = (VOLERAINHASH_WITNESS_SIZE_BITS<S> + 7)/8;
-
-template <secpar S>  
-constexpr std::size_t VOLERAINHASH_SECRET_SIZE_BYTES = VOLERAINHASH_PUBLIC_SIZE_BYTES + VOLERAINHASH_WITNESS_SIZE_BYTES<S>;
-
-constexpr std::size_t VOLERAINHASH_ONE_ROUND_RC_SIZE_BYTES = 64;
-constexpr std::size_t VOLERAINHASH_ONE_ROUND_MAT_SIZE_BYTES = 64*512;
-
-// Rain L1
-constexpr std::size_t VOLERAINHASH_OUTPUT_LEN_BITS_L1 = 512;  // Digest_bytes = 32 bytes
-constexpr std::size_t VOLERAINHASH_COMMIT_MU_SIZE_BYTES_L1 = 16;
-
-template <secpar S>                                                
-// constexpr std::size_t VOLERAINHASH_COMMITMENT_INPUT_BYTES = CPK_SIZE_BYTES<S> + HASHED_MSG_SIZE_BYTES<S> + RAND_SIZE_BYTES<S>;
-constexpr std::size_t VOLERAINHASH_COMMITMENT_INPUT_BYTES = HASHED_MSG_SIZE_BYTES<S> + RAND_SIZE_BYTES<S>;
-template <secpar S>
-constexpr std::size_t VOLERAINHASH_MAYO_HASH_INPUT_BYTES =  VOLEMAYO_DIGEST_BYTES<S> + VOLEMAYO_SALT_BYTES<S>;
-
-// // Rain L3
-// constexpr std::size_t VOLERAINHASH_OUTPUT_LEN_BITS_L3 = 384;  // Digest_bytes = 48 bytes
-// constexpr std::size_t VOLERAINHASH_COMMIT_MU_SIZE_BYTES_L3 = 24;
-// // Rain L5
-// constexpr std::size_t VOLERAINHASH_OUTPUT_LEN_BITS_L5 = 512;  // Digest_bytes = 64 bytes
-// constexpr std::size_t VOLERAINHASH_COMMIT_MU_SIZE_BYTES_L5 = 32;
-
-// template <secpar S>
-// constexpr std::size_t VOLERAINHASH_OUTPUT_LEN_BITS = (secpar_to_bytes(S) == 16 ? VOLERAINHASH_OUTPUT_LEN_BITS_L1 : 
-//                                                     (secpar_to_bytes(S) == 24 ? VOLERAINHASH_OUTPUT_LEN_BITS_L3 : VOLERAINHASH_OUTPUT_LEN_BITS_L5));
-// // NOTE: This is the output len that is actually used further in the protocol, rest from the rate we just ignore, but used in the proof
-// template <secpar S>
-// constexpr std::size_t VOLERAINHASH_OUTPUT_LEN_BYTES = (VOLERAINHASH_OUTPUT_LEN_BITS<S> + 7)/8;
-// template <secpar S>
-// constexpr std::size_t VOLERAINHASH_COMMIT_MU_SIZE_BYTES = (secpar_to_bytes(S) == 16 ? VOLERAINHASH_COMMIT_MU_SIZE_BYTES_L1 : 
-//                                                         (secpar_to_bytes(S) == 24 ? VOLERAINHASH_COMMIT_MU_SIZE_BYTES_L3 : VOLERAINHASH_COMMIT_MU_SIZE_BYTES_L5));
-
-template <secpar S>
-constexpr std::size_t VOLERAINHASH_OUTPUT_LEN_BITS = VOLERAINHASH_OUTPUT_LEN_BITS_L1;
-// NOTE: This is the output len that is actually used further in the protocol, rest from the rate we just ignore, but used in the proof
-template <secpar S>
-constexpr std::size_t VOLERAINHASH_OUTPUT_LEN_BYTES = (VOLERAINHASH_OUTPUT_LEN_BITS<S> + 7)/8;
-template <secpar S>
-constexpr std::size_t VOLERAINHASH_COMMIT_MU_SIZE_BYTES = VOLERAINHASH_COMMIT_MU_SIZE_BYTES_L1;
-#endif
+constexpr std::size_t VOLEMAYO_SECRET_SIZE_BYTES = VOLEMAYO_PUBLIC_SIZE_BYTES<S> + VOLEMAYO_WITNESS_SIZE_BYTES<S> + VOLEMAYO_SECRET_KEY_SIZE_BYTES<S>;    
 
 
 
@@ -316,12 +190,7 @@ namespace
 {
 constexpr unsigned int owf_algo_ecb = 0;
 constexpr unsigned int owf_algo_em = 2;
-#if defined WITH_KECCAK
-constexpr unsigned int owf_algo_keccak_then_mayo = 4;
-#endif
-#if defined WITH_RAINHASH
-constexpr unsigned int owf_algo_rainhash_then_mayo = 4;
-#endif
+constexpr unsigned int owf_algo_mayo = 4;
 constexpr unsigned int owf_algo_shift = 8;
 constexpr unsigned int owf_flag_zero_sboxes = 0b0001;
 constexpr unsigned int owf_flag_norm_proof = 0b0010;
@@ -332,88 +201,26 @@ constexpr unsigned int owf_flag_ctr_input = 0b1000;
 // Enum of the supported one-way functions
 enum class owf : unsigned int
 {
-    #if defined WITH_KECCAK
     aes_ecb = owf_algo_ecb << owf_algo_shift,
     aes_em = owf_algo_em << owf_algo_shift,
-    keccak_then_mayo = owf_algo_keccak_then_mayo << owf_algo_shift,
+    mayo = owf_algo_mayo << owf_algo_shift,
 
     aes_ecb_with_zero_sboxes = aes_ecb | owf_flag_zero_sboxes,
     aes_em_with_zero_sboxes = aes_em | owf_flag_zero_sboxes,
-    keccak_then_mayo_with_zero_sboxes = keccak_then_mayo | owf_flag_zero_sboxes,
+    mayo_with_zero_sboxes = mayo | owf_flag_zero_sboxes,
 
     aes_ecb_with_zero_sboxes_and_norm_proof = aes_ecb_with_zero_sboxes | owf_flag_norm_proof,
     aes_em_with_zero_sboxes_and_norm_proof = aes_em_with_zero_sboxes | owf_flag_norm_proof,
-    keccak_then_mayo_with_zero_sboxes_and_norm_proof = keccak_then_mayo_with_zero_sboxes | owf_flag_norm_proof,
+    mayo_with_zero_sboxes_and_norm_proof = mayo_with_zero_sboxes | owf_flag_norm_proof,
 
     v1 = aes_ecb,
     v1_em = aes_em,
-    v1_keccak_then_mayo = keccak_then_mayo,
+    v1_mayo = mayo,
     v2 = aes_ecb | owf_flag_zero_sboxes | owf_flag_norm_proof | owf_flag_shrunk_keyspace |
          owf_flag_ctr_input,
     v2_em = aes_em | owf_flag_zero_sboxes | owf_flag_norm_proof | owf_flag_shrunk_keyspace,
-    v2_keccak_then_mayo = keccak_then_mayo,
-    #endif
-
-    #if defined WITH_RAINHASH
-    aes_ecb = owf_algo_ecb << owf_algo_shift,
-    aes_em = owf_algo_em << owf_algo_shift,
-    rainhash_then_mayo = owf_algo_rainhash_then_mayo << owf_algo_shift,
-
-    aes_ecb_with_zero_sboxes = aes_ecb | owf_flag_zero_sboxes,
-    aes_em_with_zero_sboxes = aes_em | owf_flag_zero_sboxes,
-    rainhash_then_mayo_with_zero_sboxes = rainhash_then_mayo | owf_flag_zero_sboxes,
-
-    aes_ecb_with_zero_sboxes_and_norm_proof = aes_ecb_with_zero_sboxes | owf_flag_norm_proof,
-    aes_em_with_zero_sboxes_and_norm_proof = aes_em_with_zero_sboxes | owf_flag_norm_proof,
-    rainhash_then_mayo_with_zero_sboxes_and_norm_proof = rainhash_then_mayo_with_zero_sboxes | owf_flag_norm_proof,
-
-    v1 = aes_ecb,
-    v1_em = aes_em,
-    v1_rainhash_then_mayo = rainhash_then_mayo,
-    v2 = aes_ecb | owf_flag_zero_sboxes | owf_flag_norm_proof | owf_flag_shrunk_keyspace |
-         owf_flag_ctr_input,
-    v2_em = aes_em | owf_flag_zero_sboxes | owf_flag_norm_proof | owf_flag_shrunk_keyspace,
-    v2_rainhash_then_mayo = rainhash_then_mayo,
-    #endif
+    v2_mayo = mayo,
 };
-
-constexpr bool is_owf_with_aes_ecb(owf o)
-{
-    return (std::to_underlying(o) >> owf_algo_shift) == owf_algo_ecb;
-}
-
-constexpr bool is_owf_with_aes_em(owf o)
-{
-    return (std::to_underlying(o) >> owf_algo_shift) == owf_algo_em;
-}
-
-#if defined WITH_KECCAK
-constexpr bool is_owf_with_keccak_then_mayo(owf o)
-{
-    return (std::to_underlying(o) >> owf_algo_shift) == owf_algo_keccak_then_mayo;
-}
-#endif
-
-#if defined WITH_RAINHASH
-constexpr bool is_owf_with_rainhash_then_mayo(owf o)
-{
-    return (std::to_underlying(o) >> owf_algo_shift) == owf_algo_rainhash_then_mayo;
-}
-#endif
-
-constexpr bool is_owf_with_zero_sboxes(owf o)
-{
-    return std::to_underlying(o) & owf_flag_zero_sboxes;
-}
-
-constexpr bool is_owf_with_norm_proof(owf o) { return std::to_underlying(o) & owf_flag_norm_proof; }
-
-constexpr bool is_owf_with_shrunk_keyspace(owf o)
-{
-    return std::to_underlying(o) & owf_flag_shrunk_keyspace;
-}
-
-constexpr bool is_owf_with_ctr_input(owf o) { return std::to_underlying(o) & owf_flag_ctr_input; }
 
 // Enum of the supported PRGs
 enum class prg
@@ -581,30 +388,38 @@ struct parameter_set
     }();
 };
 
-
 // The FAEST v1 instances
 namespace v1
 {
+using faest_128_s = parameter_set<secpar::s128, 11, owf::aes_ecb, prg::aes_ctr>;
+using faest_128_f = parameter_set<secpar::s128, 16, owf::aes_ecb, prg::aes_ctr>;
+using faest_192_s = parameter_set<secpar::s192, 16, owf::aes_ecb, prg::aes_ctr>;
+using faest_192_f = parameter_set<secpar::s192, 24, owf::aes_ecb, prg::aes_ctr>;
+using faest_256_s = parameter_set<secpar::s256, 22, owf::aes_ecb, prg::aes_ctr>;
+using faest_256_f = parameter_set<secpar::s256, 32, owf::aes_ecb, prg::aes_ctr>;
 
-#if defined WITH_KECCAK
-using keccak_then_mayo_128_s = parameter_set<secpar::s128, 9, owf::v1_keccak_then_mayo, prg::aes_ctr>;
-using keccak_then_mayo_128_f = parameter_set<secpar::s128, 16, owf::v1_keccak_then_mayo, prg::aes_ctr>;
-using keccak_then_mayo_192_s = parameter_set<secpar::s192, 14, owf::v1_keccak_then_mayo, prg::aes_ctr>;
-using keccak_then_mayo_192_f = parameter_set<secpar::s192, 24, owf::v1_keccak_then_mayo, prg::aes_ctr>;
-using keccak_then_mayo_256_s = parameter_set<secpar::s256, 20, owf::v1_keccak_then_mayo, prg::aes_ctr>;
-using keccak_then_mayo_256_f = parameter_set<secpar::s256, 32, owf::v1_keccak_then_mayo, prg::aes_ctr>;
-#endif
+using faest_em_128_s = parameter_set<secpar::s128, 11, owf::aes_em, prg::aes_ctr>;
+using faest_em_128_f = parameter_set<secpar::s128, 16, owf::aes_em, prg::aes_ctr>;
+using faest_em_192_s = parameter_set<secpar::s192, 16, owf::aes_em, prg::aes_ctr>;
+using faest_em_192_f = parameter_set<secpar::s192, 24, owf::aes_em, prg::aes_ctr>;
+using faest_em_256_s = parameter_set<secpar::s256, 22, owf::aes_em, prg::aes_ctr>;
+using faest_em_256_f = parameter_set<secpar::s256, 32, owf::aes_em, prg::aes_ctr>;
 
-#if defined WITH_RAINHASH
-using rainhash_then_mayo_128_s = parameter_set<secpar::s128, 9, owf::v1_rainhash_then_mayo, prg::aes_ctr>;
-using rainhash_then_mayo_128_f = parameter_set<secpar::s128, 16, owf::v1_rainhash_then_mayo, prg::aes_ctr>;
-using rainhash_then_mayo_192_s = parameter_set<secpar::s192, 14, owf::v1_rainhash_then_mayo, prg::aes_ctr>;
-using rainhash_then_mayo_192_f = parameter_set<secpar::s192, 24, owf::v1_rainhash_then_mayo, prg::aes_ctr>;
-using rainhash_then_mayo_256_s = parameter_set<secpar::s256, 20, owf::v1_rainhash_then_mayo, prg::aes_ctr>;
-using rainhash_then_mayo_256_f = parameter_set<secpar::s256, 32, owf::v1_rainhash_then_mayo, prg::aes_ctr>;
-#endif
-    
+using mayo_128_s = parameter_set<secpar::s128, 9, owf::mayo, prg::aes_ctr, prg::aes_ctr>;
+using mayo_128_f = parameter_set<secpar::s128, 16, owf::mayo, prg::aes_ctr, prg::aes_ctr>;
+using mayo_192_s = parameter_set<secpar::s192, 14, owf::mayo, prg::aes_ctr, prg::aes_ctr>;
+using mayo_192_f = parameter_set<secpar::s192, 24, owf::mayo, prg::aes_ctr, prg::aes_ctr>;
+using mayo_256_s = parameter_set<secpar::s256, 19, owf::mayo, prg::aes_ctr, prg::aes_ctr>;
+using mayo_256_f = parameter_set<secpar::s256, 32, owf::mayo, prg::aes_ctr, prg::aes_ctr>;
+
 } // namespace v1
+
+// Macro listing all instances, useful to instantiate tests with all parameter sets
+#define ALL_FAEST_V1_INSTANCES                                                                     \
+    v1::faest_128_s, v1::faest_128_f, v1::faest_192_s, v1::faest_192_f, v1::faest_256_s,           \
+        v1::faest_256_f, v1::faest_em_128_s, v1::faest_em_128_f, v1::faest_em_192_s,               \
+        v1::faest_em_192_f, v1::faest_em_256_s, v1::faest_em_256_f, v1::mayo_128_s,              \
+        v1::mayo_128_f, v1::mayo_192_s, v1::mayo_192_f, v1::mayo_256_s, v1::mayo_256_f 
 
 // The FAEST v2 instances (XXX: not finalized yet)
 namespace v2
@@ -612,53 +427,56 @@ namespace v2
     // Also seemed like a decent tradeoff:
     // using faest_128_s = parameter_set<secpar::s128, 10, owf::v2, prg::aes_ctr, prg::aes_ctr, leaf_hash::aes_ctr_stat_bind, 12, {bavc::one_tree, 105}>;
 
-#if defined WITH_KECCAK
-using keccak_then_mayo_128_s = parameter_set<secpar::s128, 11, owf::v2_keccak_then_mayo, prg::aes_ctr, prg::aes_ctr,
-                                    leaf_hash::aes_ctr_stat_bind, 7, {bavc::one_tree, 102}>;
-using keccak_then_mayo_128_f = parameter_set<secpar::s128, 16, owf::v2_keccak_then_mayo, prg::aes_ctr, prg::aes_ctr,
-                                    leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 110}>;
-using keccak_then_mayo_192_s = parameter_set<secpar::s192, 16, owf::v2_keccak_then_mayo, prg::aes_ctr, prg::aes_ctr,
-                                    leaf_hash::aes_ctr_stat_bind, 12, {bavc::one_tree, 162}>;
-using keccak_then_mayo_192_f = parameter_set<secpar::s192, 24, owf::v2_keccak_then_mayo, prg::aes_ctr, prg::aes_ctr,
-                                    leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 163}>;
-using keccak_then_mayo_256_s = parameter_set<secpar::s256, 22, owf::v2_keccak_then_mayo, prg::aes_ctr, prg::aes_ctr,
-                                    leaf_hash::aes_ctr_stat_bind, 6, {bavc::one_tree, 245}>;
-using keccak_then_mayo_256_f = parameter_set<secpar::s256, 32, owf::v2_keccak_then_mayo, prg::aes_ctr, prg::aes_ctr,
-                                    leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 246}>;
-#endif
+using faest_128_s = parameter_set<secpar::s128, 11, owf::v2, prg::aes_ctr, prg::aes_ctr,
+                                  leaf_hash::aes_ctr_stat_bind, 7, {bavc::one_tree, 102}>;
+using faest_128_f = parameter_set<secpar::s128, 16, owf::v2, prg::aes_ctr, prg::aes_ctr,
+                                  leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 110}>;
+using faest_192_s = parameter_set<secpar::s192, 16, owf::v2, prg::aes_ctr, prg::aes_ctr,
+                                  leaf_hash::aes_ctr_stat_bind, 12, {bavc::one_tree, 162}>;
+using faest_192_f = parameter_set<secpar::s192, 24, owf::v2, prg::aes_ctr, prg::aes_ctr,
+                                  leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 163}>;
+using faest_256_s = parameter_set<secpar::s256, 22, owf::v2, prg::aes_ctr, prg::aes_ctr,
+                                  leaf_hash::aes_ctr_stat_bind, 6, {bavc::one_tree, 245}>;
+using faest_256_f = parameter_set<secpar::s256, 32, owf::v2, prg::aes_ctr, prg::aes_ctr,
+                                  leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 246}>;
 
-#if defined WITH_RAINHASH
-using rainhash_then_mayo_128_s = parameter_set<secpar::s128, 11, owf::v2_rainhash_then_mayo, prg::aes_ctr, prg::aes_ctr,
+using faest_em_128_s = parameter_set<secpar::s128, 11, owf::v2_em, prg::aes_ctr, prg::aes_ctr,
+                                     leaf_hash::aes_ctr, 7, {bavc::one_tree, 103}>;
+using faest_em_128_f = parameter_set<secpar::s128, 16, owf::v2_em, prg::aes_ctr, prg::aes_ctr,
+                                     leaf_hash::aes_ctr, 8, {bavc::one_tree, 112}>;
+using faest_em_192_s = parameter_set<secpar::s192, 16, owf::v2_em, prg::aes_ctr, prg::aes_ctr,
+                                     leaf_hash::aes_ctr, 8, {bavc::one_tree, 162}>;
+using faest_em_192_f = parameter_set<secpar::s192, 24, owf::v2_em, prg::aes_ctr, prg::aes_ctr,
+                                     leaf_hash::aes_ctr, 8, {bavc::one_tree, 176}>;
+using faest_em_256_s = parameter_set<secpar::s256, 22, owf::v2_em, prg::aes_ctr, prg::aes_ctr,
+                                     leaf_hash::aes_ctr, 6, {bavc::one_tree, 218}>;
+using faest_em_256_f = parameter_set<secpar::s256, 32, owf::v2_em, prg::aes_ctr, prg::aes_ctr,
+                                     leaf_hash::aes_ctr, 8, {bavc::one_tree, 234}>;
+
+
+using mayo_128_s = parameter_set<secpar::s128, 11, owf::v2_mayo, prg::aes_ctr, prg::aes_ctr,
                                     leaf_hash::aes_ctr_stat_bind, 7, {bavc::one_tree, 102}>;
-using rainhash_then_mayo_128_f = parameter_set<secpar::s128, 16, owf::v2_rainhash_then_mayo, prg::aes_ctr, prg::aes_ctr,
+using mayo_128_f = parameter_set<secpar::s128, 16, owf::v2_mayo, prg::aes_ctr, prg::aes_ctr,
                                     leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 110}>;
-using rainhash_then_mayo_192_s = parameter_set<secpar::s192, 16, owf::v2_rainhash_then_mayo, prg::aes_ctr, prg::aes_ctr,
+using mayo_192_s = parameter_set<secpar::s192, 16, owf::v2_mayo, prg::aes_ctr, prg::aes_ctr,
                                     leaf_hash::aes_ctr_stat_bind, 12, {bavc::one_tree, 162}>;
-using rainhash_then_mayo_192_f = parameter_set<secpar::s192, 24, owf::v2_rainhash_then_mayo, prg::aes_ctr, prg::aes_ctr,
+using mayo_192_f = parameter_set<secpar::s192, 24, owf::v2_mayo, prg::aes_ctr, prg::aes_ctr,
                                     leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 163}>;
-using rainhash_then_mayo_256_s = parameter_set<secpar::s256, 22, owf::v2_rainhash_then_mayo, prg::aes_ctr, prg::aes_ctr,
+using mayo_256_s = parameter_set<secpar::s256, 22, owf::v2_mayo, prg::aes_ctr, prg::aes_ctr,
                                     leaf_hash::aes_ctr_stat_bind, 6, {bavc::one_tree, 245}>;
-using rainhash_then_mayo_256_f = parameter_set<secpar::s256, 32, owf::v2_rainhash_then_mayo, prg::aes_ctr, prg::aes_ctr,
+using mayo_256_f = parameter_set<secpar::s256, 32, owf::v2_mayo, prg::aes_ctr, prg::aes_ctr,
                                     leaf_hash::aes_ctr_stat_bind, 8, {bavc::one_tree, 246}>;
-#endif
                  
 } // namespace v2
 
-#if defined WITH_KECCAK
 // Macro listing all instances, useful to instantiate tests with all parameter sets
 #define ALL_FAEST_V2_INSTANCES                                                                     \
-    v2::keccak_then_mayo_128_s,                 \
-    v2::keccak_then_mayo_128_f, v2::keccak_then_mayo_192_s, v2::keccak_then_mayo_192_f, v2::keccak_then_mayo_256_s, v2::keccak_then_mayo_256_f
-#endif
+    v2::faest_128_s, v2::faest_128_f, v2::faest_192_s, v2::faest_192_f, v2::faest_256_s,           \
+        v2::faest_256_f, v2::faest_em_128_s, v2::faest_em_128_f, v2::faest_em_192_s,               \
+        v2::faest_em_192_f, v2::faest_em_256_s, v2::faest_em_256_f, v2::mayo_128_s,                 \
+        v2::mayo_128_f, v2::mayo_192_s, v2::mayo_192_f, v2::mayo_256_s, v2::mayo_256_f
 
-#if defined WITH_RAINHASH
-// Macro listing all instances, useful to instantiate tests with all parameter sets
-#define ALL_FAEST_V2_INSTANCES                                                                     \
-    v2::rainhash_then_mayo_128_s,                 \
-    v2::rainhash_then_mayo_128_f, v2::rainhash_then_mayo_192_s, v2::rainhash_then_mayo_192_f, v2::rainhash_then_mayo_256_s, v2::rainhash_then_mayo_256_f
-#endif
-
-#define ALL_FAEST_INSTANCES ALL_FAEST_V2_INSTANCES
+#define ALL_FAEST_INSTANCES ALL_FAEST_V1_INSTANCES, ALL_FAEST_V2_INSTANCES
 
 } // namespace faest
 

@@ -219,16 +219,10 @@ template <> struct poly<128>
 
     inline static poly128 from_8_poly1(const poly1* bits);
     inline static poly128 from_8_self(const poly128* polys);
-    
-    // NEW
-    inline static poly128 from_128_poly1(const poly1* bits);
-    inline static poly128 from_128_self(const poly128* polys);
 
     // --- START ---
     inline static poly128 from_4_poly1(const poly1* bits);
     inline static poly128 from_4_self(const poly128* polys);
-    inline static poly128 from_1_poly1(const poly1* bits);
-    inline static poly128 from_1_self(const poly128* polys);
     // --- END ---
 
     inline static poly128 from_8_byte(uint8_t byte)
@@ -250,12 +244,6 @@ template <> struct poly<128>
         for (size_t i = 0; i < 4; ++i)
             bits[i] = poly1::set_all(expand_bit_to_byte(byte, i + bit_offset));
         return from_4_poly1(bits);
-    }
-    inline static poly128 from_1_byte(uint8_t byte, uint8_t idx)
-    {
-        poly1 bits[1];
-        bits[0] = poly1::set_all(expand_bit_to_byte(byte, idx));
-        return from_1_poly1(bits);
     }
     // --- END ---
 
@@ -356,8 +344,6 @@ template <> struct poly<192>
     // --- START ---
     inline static poly192 from_4_poly1(const poly1* bits);
     inline static poly192 from_4_self(const poly192* polys);
-    inline static poly192 from_1_poly1(const poly1* bits);
-    inline static poly192 from_1_self(const poly192* polys);
     // --- END ---
 
     inline static poly192 from_8_byte(uint8_t byte)
@@ -379,12 +365,6 @@ template <> struct poly<192>
         for (size_t i = 0; i < 4; ++i)
             bits[i] = poly1::set_all(expand_bit_to_byte(byte, i + bit_offset));
         return from_4_poly1(bits);
-    }
-    inline static poly192 from_1_byte(uint8_t byte, uint8_t idx)
-    {
-        poly1 bits[1];
-        bits[0] = poly1::set_all(expand_bit_to_byte(byte, idx));
-        return from_1_poly1(bits);
     }
     // --- END ---
 
@@ -507,8 +487,6 @@ template <> struct poly<256>
     // --- START ---
     inline static poly256 from_4_poly1(const poly1* bits);
     inline static poly256 from_4_self(const poly256* polys);
-    inline static poly256 from_1_poly1(const poly1* bits);
-    inline static poly256 from_1_self(const poly256* polys);
     // --- END ---
 
     inline static poly256 from_8_byte(uint8_t byte)
@@ -530,12 +508,6 @@ template <> struct poly<256>
         for (size_t i = 0; i < 4; ++i)
             bits[i] = poly1::set_all(expand_bit_to_byte(byte, i + bit_offset));
         return from_4_poly1(bits);
-    }
-    inline static poly256 from_1_byte(uint8_t byte, uint8_t idx)
-    {
-        poly1 bits[1];
-        bits[0] = poly1::set_all(expand_bit_to_byte(byte, idx));
-        return from_1_poly1(bits);
     }
     // --- END ---
 
@@ -1122,11 +1094,6 @@ inline poly128 poly128::from_4_poly1(const poly1* bits)
         out = out + bits[i] * poly128::load_dup(gf4_in_gf128[i - 1]);
     return out;
 }
-inline poly128 poly128::from_1_poly1(const poly1* bits)
-{
-    poly128 out = from_1(bits[0]);
-    return out;
-}
 // --- END ---
 
 inline poly192 poly192::from_8_poly1(const poly1* bits)
@@ -1142,11 +1109,6 @@ inline poly192 poly192::from_4_poly1(const poly1* bits)
     poly192 out = from_1(bits[0]);
     for (size_t i = 1; i < 4; ++i)
         out = out + bits[i] * poly192::load_dup(gf4_in_gf192[i - 1]);
-    return out;
-}
-inline poly192 poly192::from_1_poly1(const poly1* bits)
-{
-    poly192 out = from_1(bits[0]);
     return out;
 }
 // --- END ---
@@ -1166,21 +1128,7 @@ inline poly256 poly256::from_4_poly1(const poly1* bits)
         out = out + bits[i] * poly256::load_dup(gf4_in_gf256[i - 1]);
     return out;
 }
-inline poly256 poly256::from_1_poly1(const poly1* bits)
-{
-    poly256 out = from_1(bits[0]);
-    return out;
-}
 // --- END ---
-
-// NEW
-inline poly128 poly128::from_128_poly1(const poly1* bits)
-{
-    poly128 out = from_1(bits[0]);
-    for (size_t i = 1; i < 128; ++i)
-        out = out + bits[i] * poly128::load_dup(gf128_in_gf128[i - 1]);
-    return out;
-}
 
 
 inline poly128 poly128::from_8_self(const poly128* polys)
@@ -1197,22 +1145,9 @@ inline poly128 poly128::from_4_self(const poly128* polys)
     for (size_t i = 1; i < 4; ++i)
         out = out + polys[i] * poly128::load_dup(gf4_in_gf128[i - 1]);
     return out.reduce_to<128>();
-}
-inline poly128 poly128::from_1_self(const poly128* polys)
-{
-    poly256 out = poly256::from<128>(polys[0]);
-    return out.reduce_to<128>();
+    
 }
 // --- END ---
-
-// NEW
-inline poly128 poly128::from_128_self(const poly128* polys)
-{
-    poly256 out = poly256::from<128>(polys[0]);
-    for (size_t i = 1; i < 128; ++i)
-        out = out + polys[i] * poly128::load_dup(gf128_in_gf128[i - 1]);
-    return out.reduce_to<128>();
-}
 
 inline poly192 poly192::from_8_self(const poly192* polys)
 {
@@ -1227,11 +1162,6 @@ inline poly192 poly192::from_4_self(const poly192* polys)
     poly384 out = poly384::from<192>(polys[0]);
     for (size_t i = 1; i < 4; ++i)
         out = out + polys[i] * poly192::load_dup(gf4_in_gf192[i - 1]);
-    return out.reduce_to<192>();
-}
-inline poly192 poly192::from_1_self(const poly192* polys)
-{
-    poly384 out = poly384::from<192>(polys[0]);
     return out.reduce_to<192>();
 }
 // --- END ---
@@ -1249,11 +1179,6 @@ inline poly256 poly256::from_4_self(const poly256* polys)
     poly512 out = poly512::from<256>(polys[0]);
     for (size_t i = 1; i < 4; ++i)
         out = out + polys[i] * poly256::load_dup(gf4_in_gf256[i - 1]);
-    return out.reduce_to<256>();
-}
-inline poly256 poly256::from_1_self(const poly256* polys)
-{
-    poly512 out = poly512::from<256>(polys[0]);
     return out.reduce_to<256>();
 }
 // --- END ---

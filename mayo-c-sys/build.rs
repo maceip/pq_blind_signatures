@@ -9,14 +9,16 @@ fn main() {
     if !status.success() {
         panic!("Makefile execution failed");
     }
-    // Specify the library search paths for MAYO
-    println!("cargo:rustc-link-search=target/debug");
+    let manifest_dir = env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR");
+    let lib_dir = PathBuf::from(&manifest_dir).join("target/debug");
+    // Absolute path so workspace members (cli, mobile) link correctly.
+    println!("cargo:rustc-link-search=native={}", lib_dir.display());
 
     // Specify the libraries to link
     println!("cargo:rustc-link-lib=mayo");
 
-    // Set the LD_LIBRARY_PATH environment variable for the build process
-    println!("cargo:rustc-env=LD_LIBRARY_PATH=target/debug");
+    // Runtime lookup when running tests/binaries from the workspace root.
+    println!("cargo:rustc-env=LD_LIBRARY_PATH={}", lib_dir.display());
 
     // Generate bindings, but exclude the iteratively generated bindings
     // for openssl and the system functions

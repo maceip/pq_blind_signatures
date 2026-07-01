@@ -9,547 +9,399 @@ namespace faest
 
     // clang-format off
 
-#if defined WITH_KECCAK
-// ----- v1 -----
-template bool faest_unpack_secret_key(secret_key<v1::keccak_then_mayo_128_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v1::keccak_then_mayo_128_f>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v1::keccak_then_mayo_192_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v1::keccak_then_mayo_192_f>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v1::keccak_then_mayo_256_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v1::keccak_then_mayo_256_f>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v1::mayo_128_s>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v1::mayo_128_f>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v1::mayo_192_s>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v1::mayo_192_f>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v1::mayo_256_s>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v1::mayo_256_f>*, const uint8_t*);
 
-template void faest_pack_public_key(uint8_t*, const public_key<v1::keccak_then_mayo_128_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v1::keccak_then_mayo_128_f>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v1::keccak_then_mayo_192_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v1::keccak_then_mayo_192_f>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v1::keccak_then_mayo_256_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v1::keccak_then_mayo_256_f>*);
+template bool faest_unpack_secret_key(secret_key<v2::mayo_128_s>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v2::mayo_128_f>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v2::mayo_192_s>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v2::mayo_192_f>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v2::mayo_256_s>*, const uint8_t*);
+template bool faest_unpack_secret_key(secret_key<v2::mayo_256_f>*, const uint8_t*);
 
-template void faest_unpack_public_key(public_key<v1::keccak_then_mayo_128_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v1::keccak_then_mayo_128_f>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v1::keccak_then_mayo_192_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v1::keccak_then_mayo_192_f>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v1::keccak_then_mayo_256_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v1::keccak_then_mayo_256_f>*, const uint8_t*);
+template void faest_pack_public_key(uint8_t*, const public_key<v1::mayo_128_s>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v1::mayo_128_f>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v1::mayo_192_s>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v1::mayo_192_f>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v1::mayo_256_s>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v1::mayo_256_f>*);
 
-template bool faest_pubkey<v1::keccak_then_mayo_128_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v1::keccak_then_mayo_128_f>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v1::keccak_then_mayo_192_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v1::keccak_then_mayo_192_f>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v1::keccak_then_mayo_256_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v1::keccak_then_mayo_256_f>(uint8_t*, const uint8_t*);
+template void faest_pack_public_key(uint8_t*, const public_key<v2::mayo_128_s>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v2::mayo_128_f>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v2::mayo_192_s>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v2::mayo_192_f>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v2::mayo_256_s>*);
+template void faest_pack_public_key(uint8_t*, const public_key<v2::mayo_256_f>*);
 
-// ----- v2 -----
-template bool faest_unpack_secret_key(secret_key<v2::keccak_then_mayo_128_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v2::keccak_then_mayo_128_f>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v2::keccak_then_mayo_192_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v2::keccak_then_mayo_192_f>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v2::keccak_then_mayo_256_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v2::keccak_then_mayo_256_f>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v1::mayo_128_s>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v1::mayo_128_f>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v1::mayo_192_s>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v1::mayo_192_f>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v1::mayo_256_s>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v1::mayo_256_f>*, const uint8_t*);
 
-template void faest_pack_public_key(uint8_t*, const public_key<v2::keccak_then_mayo_128_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v2::keccak_then_mayo_128_f>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v2::keccak_then_mayo_192_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v2::keccak_then_mayo_192_f>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v2::keccak_then_mayo_256_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v2::keccak_then_mayo_256_f>*);
-
-template void faest_unpack_public_key(public_key<v2::keccak_then_mayo_128_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v2::keccak_then_mayo_128_f>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v2::keccak_then_mayo_192_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v2::keccak_then_mayo_192_f>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v2::keccak_then_mayo_256_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v2::keccak_then_mayo_256_f>*, const uint8_t*);
-
-template bool faest_pubkey<v2::keccak_then_mayo_128_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v2::keccak_then_mayo_128_f>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v2::keccak_then_mayo_192_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v2::keccak_then_mayo_192_f>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v2::keccak_then_mayo_256_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v2::keccak_then_mayo_256_f>(uint8_t*, const uint8_t*);
-#endif
-
-#if defined WITH_RAINHASH
-
-// ----- v1 -----
-template bool faest_unpack_secret_key(secret_key<v1::rainhash_then_mayo_128_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v1::rainhash_then_mayo_128_f>*, const uint8_t*);
-
-
-template void faest_pack_public_key(uint8_t*, const public_key<v1::rainhash_then_mayo_128_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v1::rainhash_then_mayo_128_f>*);
-
-template void faest_unpack_public_key(public_key<v1::rainhash_then_mayo_128_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v1::rainhash_then_mayo_128_f>*, const uint8_t*);
-
-template bool faest_pubkey<v1::rainhash_then_mayo_128_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v1::rainhash_then_mayo_128_f>(uint8_t*, const uint8_t*);
-
-// ----- v2 -----
-template bool faest_unpack_secret_key(secret_key<v2::rainhash_then_mayo_128_s>*, const uint8_t*);
-template bool faest_unpack_secret_key(secret_key<v2::rainhash_then_mayo_128_f>*, const uint8_t*);
-
-
-template void faest_pack_public_key(uint8_t*, const public_key<v2::rainhash_then_mayo_128_s>*);
-template void faest_pack_public_key(uint8_t*, const public_key<v2::rainhash_then_mayo_128_f>*);
-
-template void faest_unpack_public_key(public_key<v2::rainhash_then_mayo_128_s>*, const uint8_t*);
-template void faest_unpack_public_key(public_key<v2::rainhash_then_mayo_128_f>*, const uint8_t*);
-
-template bool faest_pubkey<v2::rainhash_then_mayo_128_s>(uint8_t*, const uint8_t*);
-template bool faest_pubkey<v2::rainhash_then_mayo_128_f>(uint8_t*, const uint8_t*);
-
-#endif
-
+template void faest_unpack_public_key(public_key<v2::mayo_128_s>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v2::mayo_128_f>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v2::mayo_192_s>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v2::mayo_192_f>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v2::mayo_256_s>*, const uint8_t*);
+template void faest_unpack_public_key(public_key<v2::mayo_256_f>*, const uint8_t*);
 
 // THE VOLE STUFF
 
-#if defined WITH_KECCAK
+// mayo functions
+template bool vole_prove_1
+<faest::v1::mayo_128_s>
+(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_block* v, faest::block_secpar<faest::v1::mayo_128_s::secpar_v>* forest, 
+    faest::block128* iv_pre, unsigned char* hashed_leaves, uint8_t* proof,
+    const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
 
-// keccak_then_mayo functions
-
-// ----- v1 -----
-template bool vole_prove
-<faest::v1::keccak_then_mayo_128_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
+template bool vole_prove_2
+<faest::v1::mayo_128_s>
+(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, faest::block128* iv_pre, size_t iv_pre_size,
+                        faest::block_secpar<faest::v1::mayo_128_s::secpar_v>* forest, unsigned char* hashed_leaves, 
+                        uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 template bool vole_verify
-<faest::v1::keccak_then_mayo_128_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
+<faest::v1::mayo_128_s>
+(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
 
 
-template bool vole_prove
-<faest::v1::keccak_then_mayo_128_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
+template bool vole_prove_1
+<faest::v1::mayo_128_f>
+(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_block* v, faest::block_secpar<faest::v1::mayo_128_f::secpar_v>* forest, 
+    faest::block128* iv_pre, unsigned char* hashed_leaves, uint8_t* proof, 
+    const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
+template bool vole_prove_2
+<faest::v1::mayo_128_f>
+(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, faest::block128* iv_pre, size_t iv_pre_size, 
+                        faest::block_secpar<faest::v1::mayo_128_f::secpar_v>* forest, unsigned char* hashed_leaves, 
+                        uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 template bool vole_verify
-<faest::v1::keccak_then_mayo_128_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
+<faest::v1::mayo_128_f>
+(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
 
 
-template bool vole_prove
-<faest::v1::keccak_then_mayo_192_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
+template bool vole_prove_1
+<faest::v1::mayo_192_s>
+(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_block* v, faest::block_secpar<faest::v1::mayo_192_s::secpar_v>* forest, 
+    faest::block128* iv_pre, unsigned char* hashed_leaves, uint8_t* proof, 
+    const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
+template bool vole_prove_2
+<faest::v1::mayo_192_s>
+(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, faest::block128* iv_pre, size_t iv_pre_size, 
+                        faest::block_secpar<faest::v1::mayo_192_s::secpar_v>* forest, unsigned char* hashed_leaves, 
+                        uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 template bool vole_verify
-<faest::v1::keccak_then_mayo_192_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
+<faest::v1::mayo_192_s>
+(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
 
 
-template bool vole_prove
-<faest::v1::keccak_then_mayo_192_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
+template bool vole_prove_1
+<faest::v1::mayo_192_f>
+(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_block* v, faest::block_secpar<faest::v1::mayo_192_f::secpar_v>* forest, 
+    faest::block128* iv_pre, unsigned char* hashed_leaves, uint8_t* proof, 
+    const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
+template bool vole_prove_2
+<faest::v1::mayo_192_f>
+(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, faest::block128* iv_pre, size_t iv_pre_size, 
+                        faest::block_secpar<faest::v1::mayo_192_f::secpar_v>* forest, unsigned char* hashed_leaves, 
+                        uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 template bool vole_verify
-<faest::v1::keccak_then_mayo_192_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
+<faest::v1::mayo_192_f>
+(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
 
 
-template bool vole_prove
-<faest::v1::keccak_then_mayo_256_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
+template bool vole_prove_1
+<faest::v1::mayo_256_s>
+(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_block* v, faest::block_secpar<faest::v1::mayo_256_s::secpar_v>* forest, 
+    faest::block128* iv_pre, unsigned char* hashed_leaves, uint8_t* proof, 
+    const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
+
+template bool vole_prove_2
+<faest::v1::mayo_256_s>
+(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, faest::block128* iv_pre, size_t iv_pre_size, 
+                        faest::block_secpar<faest::v1::mayo_256_s::secpar_v>* forest, unsigned char* hashed_leaves, 
+                        uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 template bool vole_verify
-<faest::v1::keccak_then_mayo_256_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
+<faest::v1::mayo_256_s>
+(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
 
 
-template bool vole_prove
-<faest::v1::keccak_then_mayo_256_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
+template bool vole_prove_1
+<faest::v1::mayo_256_f>
+(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_block* v, faest::block_secpar<faest::v1::mayo_256_f::secpar_v>* forest, 
+    faest::block128* iv_pre, unsigned char* hashed_leaves, uint8_t* proof, 
+    const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
+
+template bool vole_prove_2
+<faest::v1::mayo_256_f>
+(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, faest::block128* iv_pre, size_t iv_pre_size, 
+                        faest::block_secpar<faest::v1::mayo_256_f::secpar_v>* forest, unsigned char* hashed_leaves, 
+                        uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 template bool vole_verify
-<faest::v1::keccak_then_mayo_256_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
+<faest::v1::mayo_256_f>
+(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
 
-// ----- v2 -----
-template bool vole_prove
-<faest::v2::keccak_then_mayo_128_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::keccak_then_mayo_128_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
-
-
-template bool vole_prove
-<faest::v2::keccak_then_mayo_128_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::keccak_then_mayo_128_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
-
-
-template bool vole_prove
-<faest::v2::keccak_then_mayo_192_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::keccak_then_mayo_192_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
-
-
-template bool vole_prove
-<faest::v2::keccak_then_mayo_192_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::keccak_then_mayo_192_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
-
-
-template bool vole_prove
-<faest::v2::keccak_then_mayo_256_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::keccak_then_mayo_256_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
-
-
-template bool vole_prove
-<faest::v2::keccak_then_mayo_256_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::keccak_then_mayo_256_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional);
-
-#endif
-
-#if defined WITH_RAINHASH
-// keccak_then_mayo functions
-
-// ----- v1 -----
-template bool vole_prove
-<faest::v1::rainhash_then_mayo_128_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc_qs, uint8_t* rain_mat_qs,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v1::rainhash_then_mayo_128_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, 
-                uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional);
-
-
-template bool vole_prove
-<faest::v1::rainhash_then_mayo_128_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc_qs, uint8_t* rain_mat_qs,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v1::rainhash_then_mayo_128_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, 
-                uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional);
-
-// ----- v2 -----
-template bool vole_prove
-<faest::v2::rainhash_then_mayo_128_s>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc_qs, uint8_t* rain_mat_qs,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::rainhash_then_mayo_128_s>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, 
-                uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional);
-
-
-template bool vole_prove
-<faest::v2::rainhash_then_mayo_128_f>
-(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc_qs, uint8_t* rain_mat_qs,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional);
-template bool vole_verify
-<faest::v2::rainhash_then_mayo_128_f>
-(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, 
-                uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional);
-
-#endif
 
 
 template <typename P> 
-void serialize_pk(uint8_t* pk, const uint8_t* expanded_pk, const uint8_t* msg_hash);
+void serialize_pk(uint8_t* pk, const uint8_t* seed, const uint8_t* p1, const uint8_t* p2, const uint8_t* p3, const uint8_t* h);
 
 template <typename P> 
-void serialize_sk(uint8_t* sk, const uint8_t* pk, const uint8_t* s, const uint8_t* salt, const uint8_t* witness);
+void serialize_sk(uint8_t* sk,  const uint8_t* pk, const uint8_t* s, const uint8_t* r);
 
-#if defined WITH_KECCAK
-// ----- v1 ----- Paramter getter
+
+
+// THE RUST WRAPPER FUNCTIONS
+
+// v1 serialize function
 extern "C" {
-    void get_keccak_then_mayo128sv1_parameters(size_t *chal1_size,
-                                   size_t *r_size,
-                                   size_t *u_size,
-                                   size_t *v_size,
-                                   size_t *forest_size,
-                                   size_t *iv_pre_size,
-                                   size_t *hashed_leaves_size,
-                                   size_t *proof_size,
-                                   size_t *proof1_size,
-                                   size_t *packed_pk_size,
-                                   size_t *packed_sk_size,
-                                   size_t *random_seed_size,
-                                   size_t *pk_seed_size,
-                                   size_t *p1_size,
-                                   size_t *p2_size,
-                                   size_t *p3_size,
-                                   size_t *h_size,
-                                   size_t *s_size) {
-
-        using P = faest::v1::keccak_then_mayo_128_s;
-        using CP = P::CONSTS;
+    // 128_s
+    void mayo_128_s_v1_serialize_pk(uint8_t* pk, size_t pk_size,
+                            const uint8_t* seed, size_t seed_size,
+                            const uint8_t* p1, size_t p1_size,
+                            const uint8_t* p2, size_t p2_size,
+                            const uint8_t* p3, size_t p3_size,
+                            const uint8_t* h, size_t h_size) {
+        using P = faest::v1::mayo_128_s;
         constexpr auto S = P::secpar_v;
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(seed_size == VOLEMAYO_PK_SEED_BYTES<S>);
+        assert(p1_size == VOLEMAYO_P1_SIZE_BYTES<S>);
+        assert(p2_size == VOLEMAYO_P2_SIZE_BYTES<S>);
+        assert(p3_size == VOLEMAYO_P3_SIZE_BYTES<S>);
+        assert(h_size == VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>);
 
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
+        serialize_pk<P>(pk, seed, p1, p2, p3, h);
     }
-        void get_keccak_then_mayo128fv1_parameters(size_t *chal1_size,
-                                   size_t *r_size,
-                                   size_t *u_size,
-                                   size_t *v_size,
-                                   size_t *forest_size,
-                                   size_t *iv_pre_size,
-                                   size_t *hashed_leaves_size,
-                                   size_t *proof_size,
-                                   size_t *proof1_size,
-                                   size_t *packed_pk_size,
-                                   size_t *packed_sk_size,
-                                   size_t *random_seed_size,
-                                   size_t *pk_seed_size,
-                                   size_t *p1_size,
-                                   size_t *p2_size,
-                                   size_t *p3_size,
-                                   size_t *h_size,
-                                   size_t *s_size) {
-
-        using P = faest::v1::keccak_then_mayo_128_f;
-        using CP = P::CONSTS;
+    void mayo_128_s_v1_serialize_sk(uint8_t* sk, size_t sk_size,
+                            const uint8_t* pk, size_t pk_size,
+                            const uint8_t* s, size_t s_size,
+                            const uint8_t* r, size_t r_size) {
+        using P = faest::v1::mayo_128_s;
         constexpr auto S = P::secpar_v;
+        assert(sk_size == VOLEMAYO_SECRET_SIZE_BYTES<S>);
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(s_size == VOLEMAYO_S_BYTES<S>);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
 
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
+        serialize_sk<P>(sk, pk, s, r);
     }
-        void get_keccak_then_mayo192sv1_parameters(size_t *chal1_size,
-                                   size_t *r_size,
-                                   size_t *u_size,
-                                   size_t *v_size,
-                                   size_t *forest_size,
-                                   size_t *iv_pre_size,
-                                   size_t *hashed_leaves_size,
-                                   size_t *proof_size,
-                                   size_t *proof1_size,
-                                   size_t *packed_pk_size,
-                                   size_t *packed_sk_size,
-                                   size_t *random_seed_size,
-                                   size_t *pk_seed_size,
-                                   size_t *p1_size,
-                                   size_t *p2_size,
-                                   size_t *p3_size,
-                                   size_t *h_size,
-                                   size_t *s_size) {
 
-        using P = faest::v1::keccak_then_mayo_192_s;
-        using CP = P::CONSTS;
+    // 128_f
+    void mayo_128_f_v1_serialize_pk(uint8_t* pk, size_t pk_size,
+                            const uint8_t* seed, size_t seed_size,
+                            const uint8_t* p1, size_t p1_size,
+                            const uint8_t* p2, size_t p2_size,
+                            const uint8_t* p3, size_t p3_size,
+                            const uint8_t* h, size_t h_size) {
+        using P = faest::v1::mayo_128_f;
         constexpr auto S = P::secpar_v;
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(seed_size == VOLEMAYO_PK_SEED_BYTES<S>);
+        assert(p1_size == VOLEMAYO_P1_SIZE_BYTES<S>);
+        assert(p2_size == VOLEMAYO_P2_SIZE_BYTES<S>);
+        assert(p3_size == VOLEMAYO_P3_SIZE_BYTES<S>);
+        assert(h_size == VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>);
 
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
+        serialize_pk<P>(pk, seed, p1, p2, p3, h);
     }
-        void get_keccak_then_mayo192fv1_parameters(size_t *chal1_size,
-                                   size_t *r_size,
-                                   size_t *u_size,
-                                   size_t *v_size,
-                                   size_t *forest_size,
-                                   size_t *iv_pre_size,
-                                   size_t *hashed_leaves_size,
-                                   size_t *proof_size,
-                                   size_t *proof1_size,
-                                   size_t *packed_pk_size,
-                                   size_t *packed_sk_size,
-                                   size_t *random_seed_size,
-                                   size_t *pk_seed_size,
-                                   size_t *p1_size,
-                                   size_t *p2_size,
-                                   size_t *p3_size,
-                                   size_t *h_size,
-                                   size_t *s_size) {
-
-        using P = faest::v1::keccak_then_mayo_192_f;
-        using CP = P::CONSTS;
+    void mayo_128_f_v1_serialize_sk(uint8_t* sk, size_t sk_size,
+                            const uint8_t* pk, size_t pk_size,
+                            const uint8_t* s, size_t s_size,
+                            const uint8_t* r, size_t r_size) {
+        using P = faest::v1::mayo_128_f;
         constexpr auto S = P::secpar_v;
+        assert(sk_size == VOLEMAYO_SECRET_SIZE_BYTES<S>);
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(s_size == VOLEMAYO_S_BYTES<S>);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
 
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
+        serialize_sk<P>(sk, pk, s, r);
     }
-        void get_keccak_then_mayo256sv1_parameters(size_t *chal1_size,
-                                   size_t *r_size,
-                                   size_t *u_size,
-                                   size_t *v_size,
-                                   size_t *forest_size,
-                                   size_t *iv_pre_size,
-                                   size_t *hashed_leaves_size,
-                                   size_t *proof_size,
-                                   size_t *proof1_size,
-                                   size_t *packed_pk_size,
-                                   size_t *packed_sk_size,
-                                   size_t *random_seed_size,
-                                   size_t *pk_seed_size,
-                                   size_t *p1_size,
-                                   size_t *p2_size,
-                                   size_t *p3_size,
-                                   size_t *h_size,
-                                   size_t *s_size) {
 
-        using P = faest::v1::keccak_then_mayo_256_s;
-        using CP = P::CONSTS;
+
+    // 192_s
+    void mayo_192_s_v1_serialize_pk(uint8_t* pk, size_t pk_size,
+                            const uint8_t* seed, size_t seed_size,
+                            const uint8_t* p1, size_t p1_size,
+                            const uint8_t* p2, size_t p2_size,
+                            const uint8_t* p3, size_t p3_size,
+                            const uint8_t* h, size_t h_size) {
+        using P = faest::v1::mayo_192_s;
         constexpr auto S = P::secpar_v;
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(seed_size == VOLEMAYO_PK_SEED_BYTES<S>);
+        assert(p1_size == VOLEMAYO_P1_SIZE_BYTES<S>);
+        assert(p2_size == VOLEMAYO_P2_SIZE_BYTES<S>);
+        assert(p3_size == VOLEMAYO_P3_SIZE_BYTES<S>);
+        assert(h_size == VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>);
 
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
+        serialize_pk<P>(pk, seed, p1, p2, p3, h);
     }
-        void get_keccak_then_mayo256fv1_parameters(size_t *chal1_size,
-                                   size_t *r_size,
-                                   size_t *u_size,
-                                   size_t *v_size,
-                                   size_t *forest_size,
-                                   size_t *iv_pre_size,
-                                   size_t *hashed_leaves_size,
-                                   size_t *proof_size,
-                                   size_t *proof1_size,
-                                   size_t *packed_pk_size,
-                                   size_t *packed_sk_size,
-                                   size_t *random_seed_size,
-                                   size_t *pk_seed_size,
-                                   size_t *p1_size,
-                                   size_t *p2_size,
-                                   size_t *p3_size,
-                                   size_t *h_size,
-                                   size_t *s_size) {
-
-        using P = faest::v1::keccak_then_mayo_256_f;
-        using CP = P::CONSTS;
+    void mayo_192_s_v1_serialize_sk(uint8_t* sk, size_t sk_size,
+                            const uint8_t* pk, size_t pk_size,
+                            const uint8_t* s, size_t s_size,
+                            const uint8_t* r, size_t r_size) {
+        using P = faest::v1::mayo_192_s;
         constexpr auto S = P::secpar_v;
+        assert(sk_size == VOLEMAYO_SECRET_SIZE_BYTES<S>);
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(s_size == VOLEMAYO_S_BYTES<S>);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
 
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
+        serialize_sk<P>(sk, pk, s, r);
     }
+
+    // 192_f
+    void mayo_192_f_v1_serialize_pk(uint8_t* pk, size_t pk_size,
+                            const uint8_t* seed, size_t seed_size,
+                            const uint8_t* p1, size_t p1_size,
+                            const uint8_t* p2, size_t p2_size,
+                            const uint8_t* p3, size_t p3_size,
+                            const uint8_t* h, size_t h_size) {
+        using P = faest::v1::mayo_192_f;
+        constexpr auto S = P::secpar_v;
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(seed_size == VOLEMAYO_PK_SEED_BYTES<S>);
+        assert(p1_size == VOLEMAYO_P1_SIZE_BYTES<S>);
+        assert(p2_size == VOLEMAYO_P2_SIZE_BYTES<S>);
+        assert(p3_size == VOLEMAYO_P3_SIZE_BYTES<S>);
+        assert(h_size == VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>);
+
+        serialize_pk<P>(pk, seed, p1, p2, p3, h);
+    }
+    void mayo_192_f_v1_serialize_sk(uint8_t* sk, size_t sk_size,
+                            const uint8_t* pk, size_t pk_size,
+                            const uint8_t* s, size_t s_size,
+                            const uint8_t* r, size_t r_size) {
+        using P = faest::v1::mayo_192_f;
+        constexpr auto S = P::secpar_v;
+        assert(sk_size == VOLEMAYO_SECRET_SIZE_BYTES<S>);
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(s_size == VOLEMAYO_S_BYTES<S>);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+
+        serialize_sk<P>(sk, pk, s, r);
+    }
+
+
+    // 256_s
+    void mayo_256_s_v1_serialize_pk(uint8_t* pk, size_t pk_size,
+                            const uint8_t* seed, size_t seed_size,
+                            const uint8_t* p1, size_t p1_size,
+                            const uint8_t* p2, size_t p2_size,
+                            const uint8_t* p3, size_t p3_size,
+                            const uint8_t* h, size_t h_size) {
+        using P = faest::v1::mayo_256_s;
+        constexpr auto S = P::secpar_v;
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(seed_size == VOLEMAYO_PK_SEED_BYTES<S>);
+        assert(p1_size == VOLEMAYO_P1_SIZE_BYTES<S>);
+        assert(p2_size == VOLEMAYO_P2_SIZE_BYTES<S>);
+        assert(p3_size == VOLEMAYO_P3_SIZE_BYTES<S>);
+        assert(h_size == VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>);
+
+        serialize_pk<P>(pk, seed, p1, p2, p3, h);
+    }
+    void mayo_256_s_v1_serialize_sk(uint8_t* sk, size_t sk_size,
+                            const uint8_t* pk, size_t pk_size,
+                            const uint8_t* s, size_t s_size,
+                            const uint8_t* r, size_t r_size) {
+        using P = faest::v1::mayo_256_s;
+        constexpr auto S = P::secpar_v;
+        assert(sk_size == VOLEMAYO_SECRET_SIZE_BYTES<S>);
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(s_size == VOLEMAYO_S_BYTES<S>);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+
+        serialize_sk<P>(sk, pk, s, r);
+    }
+
+    // 256_f
+    void mayo_256_f_v1_serialize_pk(uint8_t* pk, size_t pk_size,
+                            const uint8_t* seed, size_t seed_size,
+                            const uint8_t* p1, size_t p1_size,
+                            const uint8_t* p2, size_t p2_size,
+                            const uint8_t* p3, size_t p3_size,
+                            const uint8_t* h, size_t h_size) {
+        using P = faest::v1::mayo_256_f;
+        constexpr auto S = P::secpar_v;
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(seed_size == VOLEMAYO_PK_SEED_BYTES<S>);
+        assert(p1_size == VOLEMAYO_P1_SIZE_BYTES<S>);
+        assert(p2_size == VOLEMAYO_P2_SIZE_BYTES<S>);
+        assert(p3_size == VOLEMAYO_P3_SIZE_BYTES<S>);
+        assert(h_size == VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>);
+
+        serialize_pk<P>(pk, seed, p1, p2, p3, h);
+    }
+    void mayo_256_f_v1_serialize_sk(uint8_t* sk, size_t sk_size,
+                            const uint8_t* pk, size_t pk_size,
+                            const uint8_t* s, size_t s_size,
+                            const uint8_t* r, size_t r_size) {
+        using P = faest::v1::mayo_256_f;
+        constexpr auto S = P::secpar_v;
+        assert(sk_size == VOLEMAYO_SECRET_SIZE_BYTES<S>);
+        assert(pk_size == VOLEMAYO_PUBLIC_SIZE_BYTES<S>);
+        assert(s_size == VOLEMAYO_S_BYTES<S>);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+
+        serialize_sk<P>(sk, pk, s, r);
+    }
+
 }
 
-// ----- v2 ----- Paramter getter
+
+// v1 Parameter getter
 extern "C" {
-    void get_keccak_then_mayo128sv2_parameters(size_t *chal1_size,
+    void get_mayo128sv1_parameters(size_t *chal1_size,
+                                   size_t *r_size,
+                                   size_t *u_size,
+                                   size_t *v_size,
+                                   size_t *forest_size,
+                                   size_t *iv_pre_size,
+                                   size_t *hashed_leaves_size,
+                                   size_t *proof_size,
+                                   size_t *proof1_size,
+                                   size_t *packed_pk_size,
+                                   size_t *packed_sk_size,
+                                   size_t *random_seed_size,
+                                   size_t *pk_seed_size,
+                                   size_t *p1_size,
+                                   size_t *p2_size,
+                                   size_t *p3_size,
+                                   size_t *h_size,
+                                   size_t *s_size) {
+        using P = faest::v1::mayo_128_s;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+
+        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
+        *r_size = VOLEMAYO_R_BYTES<S>;
+        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
+        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
+        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
+        *iv_pre_size       = sizeof(faest::block128);
+        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
+        *proof_size        = VOLE_PROOF_BYTES<P>;
+        *proof1_size        = CP::VOLE_COMMIT_SIZE;
+        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<S>;
+        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
+
+        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
+        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
+        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
+        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
+        *h_size =  VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>;
+        *s_size =  VOLEMAYO_S_BYTES<S>;
+
+    }
+        void get_mayo128fv1_parameters(size_t *chal1_size,
                                    size_t *r_size,
                                    size_t *u_size,
                                    size_t *v_size,
@@ -568,12 +420,12 @@ extern "C" {
                                    size_t *h_size,
                                    size_t *s_size) {
 
-        using P = faest::v2::keccak_then_mayo_128_s;
+        using P = faest::v1::mayo_128_f;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
 
         *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
+        *r_size = VOLEMAYO_R_BYTES<S>;
         *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
@@ -588,10 +440,10 @@ extern "C" {
         *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
         *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
         *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
+        *h_size =  VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>;
         *s_size =  VOLEMAYO_S_BYTES<S>;
     }
-        void get_keccak_then_mayo128fv2_parameters(size_t *chal1_size,
+        void get_mayo192sv1_parameters(size_t *chal1_size,
                                    size_t *r_size,
                                    size_t *u_size,
                                    size_t *v_size,
@@ -610,12 +462,12 @@ extern "C" {
                                    size_t *h_size,
                                    size_t *s_size) {
 
-        using P = faest::v2::keccak_then_mayo_128_f;
+        using P = faest::v1::mayo_192_s;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
 
         *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
+        *r_size = VOLEMAYO_R_BYTES<S>;
         *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
@@ -630,10 +482,10 @@ extern "C" {
         *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
         *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
         *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
+        *h_size =  VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>;
         *s_size =  VOLEMAYO_S_BYTES<S>;
     }
-        void get_keccak_then_mayo192sv2_parameters(size_t *chal1_size,
+        void get_mayo192fv1_parameters(size_t *chal1_size,
                                    size_t *r_size,
                                    size_t *u_size,
                                    size_t *v_size,
@@ -652,12 +504,12 @@ extern "C" {
                                    size_t *h_size,
                                    size_t *s_size) {
 
-        using P = faest::v2::keccak_then_mayo_192_s;
+        using P = faest::v1::mayo_192_f;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
 
         *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
+        *r_size = VOLEMAYO_R_BYTES<S>;
         *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
@@ -672,10 +524,10 @@ extern "C" {
         *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
         *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
         *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
+        *h_size =  VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>;
         *s_size =  VOLEMAYO_S_BYTES<S>;
     }
-        void get_keccak_then_mayo192fv2_parameters(size_t *chal1_size,
+        void get_mayo256sv1_parameters(size_t *chal1_size,
                                    size_t *r_size,
                                    size_t *u_size,
                                    size_t *v_size,
@@ -694,12 +546,12 @@ extern "C" {
                                    size_t *h_size,
                                    size_t *s_size) {
 
-        using P = faest::v2::keccak_then_mayo_192_f;
+        using P = faest::v1::mayo_256_s;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
 
         *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
+        *r_size = VOLEMAYO_R_BYTES<S>;
         *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
@@ -714,10 +566,10 @@ extern "C" {
         *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
         *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
         *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
+        *h_size =  VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>;
         *s_size =  VOLEMAYO_S_BYTES<S>;
     }
-        void get_keccak_then_mayo256sv2_parameters(size_t *chal1_size,
+        void get_mayo256fv1_parameters(size_t *chal1_size,
                                    size_t *r_size,
                                    size_t *u_size,
                                    size_t *v_size,
@@ -736,12 +588,12 @@ extern "C" {
                                    size_t *h_size,
                                    size_t *s_size) {
 
-        using P = faest::v2::keccak_then_mayo_256_s;
+        using P = faest::v1::mayo_256_f;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
 
         *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
+        *r_size = VOLEMAYO_R_BYTES<S>;
         *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
         *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
@@ -756,633 +608,375 @@ extern "C" {
         *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
         *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
         *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
+        *h_size =  VOLEMAYO_PROVE_1_H_SIZE_BYTES<S>;
         *s_size =  VOLEMAYO_S_BYTES<S>;
     }
-        void get_keccak_then_mayo256fv2_parameters(size_t *chal1_size,
-                                   size_t *r_size,
-                                   size_t *u_size,
-                                   size_t *v_size,
-                                   size_t *forest_size,
-                                   size_t *iv_pre_size,
-                                   size_t *hashed_leaves_size,
-                                   size_t *proof_size,
-                                   size_t *proof1_size,
-                                   size_t *packed_pk_size,
-                                   size_t *packed_sk_size,
-                                   size_t *random_seed_size,
-                                   size_t *pk_seed_size,
-                                   size_t *p1_size,
-                                   size_t *p2_size,
-                                   size_t *p3_size,
-                                   size_t *h_size,
-                                   size_t *s_size) {
-
-        using P = faest::v2::keccak_then_mayo_256_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
-    }
-}
-// ----- V1 -----
-// 128s/f
-extern "C" {
-    bool keccak_then_mayo128sv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_128_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo128sv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_128_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-
-
-    bool keccak_then_mayo128fv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_128_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo128fv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_128_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-}
-// 192s/f
-extern "C" {
-    bool keccak_then_mayo192sv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_192_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo192sv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_192_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-
-
-    bool keccak_then_mayo192fv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_192_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo192fv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_192_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-}
-// 256s/f
-extern "C" {
-    bool keccak_then_mayo256sv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_256_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo256sv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_256_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-
-
-    bool keccak_then_mayo256fv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_256_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
     
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo256fv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v1::keccak_then_mayo_256_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
 }
 
-// ----- V2 -----
-// 128s/f
-extern "C" {
-    bool keccak_then_mayo128sv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_128_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo128sv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_128_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
 
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-
-
-    bool keccak_then_mayo128fv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_128_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo128fv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_128_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-}
-// 192s/f
-extern "C" {
-    bool keccak_then_mayo192sv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_192_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo192sv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_192_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-
-
-    bool keccak_then_mayo192fv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_192_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo192fv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_192_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-}
-// 256s/f
-extern "C" {
-    bool keccak_then_mayo256sv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_256_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo256sv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_256_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-
-
-    bool keccak_then_mayo256fv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_256_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-    
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                s, rand, salt, r_additional);
-    }
-    bool keccak_then_mayo256fv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* r_additional) {
-        using P = faest::v2::keccak_then_mayo_256_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-        assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, r_additional);
-    }
-}
-
-#endif
-
-
-#if defined WITH_RAINHASH
-
-// ----- v1 ----- Paramter getter
-extern "C" {
-void get_rainhash_then_mayo128sv1_parameters(size_t *chal1_size,
-                                size_t *r_size,
-                                size_t *u_size,
-                                size_t *v_size,
-                                size_t *forest_size,
-                                size_t *iv_pre_size,
-                                size_t *hashed_leaves_size,
-                                size_t *proof_size,
-                                size_t *proof1_size,
-                                size_t *packed_pk_size,
-                                size_t *packed_sk_size,
-                                size_t *random_seed_size,
-                                size_t *pk_seed_size,
-                                size_t *p1_size,
-                                size_t *p2_size,
-                                size_t *p3_size,
-                                size_t *h_size,
-                                size_t *s_size) {
-
-        using P = faest::v1::rainhash_then_mayo_128_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
-    }
-    void get_rainhash_then_mayo128fv1_parameters(size_t *chal1_size,
-                                size_t *r_size,
-                                size_t *u_size,
-                                size_t *v_size,
-                                size_t *forest_size,
-                                size_t *iv_pre_size,
-                                size_t *hashed_leaves_size,
-                                size_t *proof_size,
-                                size_t *proof1_size,
-                                size_t *packed_pk_size,
-                                size_t *packed_sk_size,
-                                size_t *random_seed_size,
-                                size_t *pk_seed_size,
-                                size_t *p1_size,
-                                size_t *p2_size,
-                                size_t *p3_size,
-                                size_t *h_size,
-                                size_t *s_size) {
-
-        using P = faest::v1::rainhash_then_mayo_128_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
-    }
-// ----- v2 ----- Paramter getter
-    void get_rainhash_then_mayo128sv2_parameters(size_t *chal1_size,
-                                size_t *r_size,
-                                size_t *u_size,
-                                size_t *v_size,
-                                size_t *forest_size,
-                                size_t *iv_pre_size,
-                                size_t *hashed_leaves_size,
-                                size_t *proof_size,
-                                size_t *proof1_size,
-                                size_t *packed_pk_size,
-                                size_t *packed_sk_size,
-                                size_t *random_seed_size,
-                                size_t *pk_seed_size,
-                                size_t *p1_size,
-                                size_t *p2_size,
-                                size_t *p3_size,
-                                size_t *h_size,
-                                size_t *s_size) {
-
-        using P = faest::v2::rainhash_then_mayo_128_s;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
-    }
-    void get_rainhash_then_mayo128fv2_parameters(size_t *chal1_size,
-                                size_t *r_size,
-                                size_t *u_size,
-                                size_t *v_size,
-                                size_t *forest_size,
-                                size_t *iv_pre_size,
-                                size_t *hashed_leaves_size,
-                                size_t *proof_size,
-                                size_t *proof1_size,
-                                size_t *packed_pk_size,
-                                size_t *packed_sk_size,
-                                size_t *random_seed_size,
-                                size_t *pk_seed_size,
-                                size_t *p1_size,
-                                size_t *p2_size,
-                                size_t *p3_size,
-                                size_t *h_size,
-                                size_t *s_size) {
-
-        using P = faest::v2::rainhash_then_mayo_128_f;
-        using CP = P::CONSTS;
-        constexpr auto S = P::secpar_v;
-
-        *chal1_size        = CP::VOLE_CHECK::CHALLENGE_BYTES;
-        
-        *u_size            = CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *v_size            = P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block);
-        *forest_size       = P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>);
-        *iv_pre_size       = sizeof(faest::block128);
-        *hashed_leaves_size = P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len;
-        *proof_size        = VOLE_PROOF_BYTES<P>;
-        *proof1_size        = CP::VOLE_COMMIT_SIZE;
-        *packed_pk_size    = faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>;
-        *packed_sk_size = faest::VOLEMAYO_SECRET_SIZE_BYTES<S>;
-
-        *pk_seed_size = VOLEMAYO_PK_SEED_BYTES<S>;
-        *p1_size = VOLEMAYO_P1_SIZE_BYTES<S>;
-        *p2_size = VOLEMAYO_P2_SIZE_BYTES<S>;
-        *p3_size =  VOLEMAYO_P3_SIZE_BYTES<S>;
-        
-        *s_size =  VOLEMAYO_S_BYTES<S>;
-    }
-
-    void rain_hash_512_7_c(uint8_t* output, size_t  outlen, const uint8_t* input, size_t inlen) {
-        // set_0xff_params();
-
-        // checking for input length to be 64
-        for (size_t i = 0; i < 64; i++) {
-            assert(input != NULL);
-        }
-
-        uint8_t hash_output[64];
-        rain_hash(input, hash_output);
-
-        assert(outlen <= 64);
-        assert(outlen >= 32);   // to maintain minimum 128-bit security
-        // returning only required outlen from the hash
-        for (size_t i = 0; i < outlen; i++) {
-            output[i] = hash_output[i];
-        }
-
-    }
-}
 // V1
 // 128s/f
 extern "C" {
-    bool rainhash_then_mayo128sv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc, uint8_t* rain_mat,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::rainhash_then_mayo_128_s;
+    bool mayo128sv1_prove_1(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* r, size_t r_size,
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            const uint8_t* random_seed, size_t random_seed_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_128_s;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
-        
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                rain_rc, rain_mat,
-                s, rand, salt, r_additional);
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        return vole_prove_1<P>(chal1, r, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block_secpar<P::secpar_v>*)forest, 
+                        (faest::block128*)iv_pre, (unsigned char*)hashed_leaves, proof, random_seed, random_seed_size, r_additional);
     }
-    bool rainhash_then_mayo128sv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional) {
-        using P = faest::v1::rainhash_then_mayo_128_s;
+    bool mayo128sv1_prove_2(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            uint8_t* packed_pk, size_t packed_pk_size,
+                            const uint8_t* packed_sk, size_t packed_sk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_128_s;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        assert(packed_sk_size == faest::VOLEMAYO_SECRET_SIZE_BYTES<P::secpar_v>);
+        return vole_prove_2<P>(proof, chal1, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block128*)iv_pre, iv_pre_size, (faest::block_secpar<P::secpar_v>*)forest, 
+                            (unsigned char*)hashed_leaves, packed_pk, packed_sk, r_additional);
+    }
+    bool mayo128sv1_verify( const uint8_t* proof, size_t proof_size,
+                            const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_128_s;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
         assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, rain_rc, rain_mat, r_additional);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        
+        return vole_verify<P>(proof, proof_size, packed_pk, packed_pk_size, r_additional);
     }
 
 
-    bool rainhash_then_mayo128fv1_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc, uint8_t* rain_mat,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v1::rainhash_then_mayo_128_f;
+    bool mayo128fv1_prove_1(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* r, size_t r_size,
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            const uint8_t* random_seed, size_t random_seed_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_128_f;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
         
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                rain_rc, rain_mat,
-                s, rand, salt, r_additional);
+        return vole_prove_1<P>(chal1, r, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block_secpar<P::secpar_v>*)forest, 
+                        (faest::block128*)iv_pre, (unsigned char*)hashed_leaves, proof, random_seed, random_seed_size, r_additional);
     }
-    bool rainhash_then_mayo128fv1_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional) {
-        using P = faest::v1::rainhash_then_mayo_128_f;
+    bool mayo128fv1_prove_2(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            uint8_t* packed_pk, size_t packed_pk_size,
+                            const uint8_t* packed_sk, size_t packed_sk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_128_f;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        assert(packed_sk_size == faest::VOLEMAYO_SECRET_SIZE_BYTES<P::secpar_v>);
+        return vole_prove_2<P>(proof, chal1, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block128*)iv_pre, iv_pre_size, (faest::block_secpar<P::secpar_v>*)forest, 
+                            (unsigned char*)hashed_leaves, packed_pk, packed_sk, r_additional);
+    }
+    bool mayo128fv1_verify( const uint8_t* proof, size_t proof_size,
+                            const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_128_f;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
         assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, rain_rc, rain_mat, r_additional);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        
+        return vole_verify<P>(proof, proof_size, packed_pk, packed_pk_size, r_additional);
     }
 }
-// V2
-// 128s/f
+// 192s/f
 extern "C" {
-    bool rainhash_then_mayo128sv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc, uint8_t* rain_mat,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::rainhash_then_mayo_128_s;
+    bool mayo192sv1_prove_1(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* r, size_t r_size,
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            const uint8_t* random_seed, size_t random_seed_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_192_s;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
         
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                rain_rc, rain_mat,
-                s, rand, salt, r_additional);
+        return vole_prove_1<P>(chal1, r, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block_secpar<P::secpar_v>*)forest, 
+                        (faest::block128*)iv_pre, (unsigned char*)hashed_leaves, proof, random_seed, random_seed_size, r_additional);
     }
-    bool rainhash_then_mayo128sv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional) {
-        using P = faest::v2::rainhash_then_mayo_128_s;
+    bool mayo192sv1_prove_2(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            uint8_t* packed_pk, size_t packed_pk_size,
+                            const uint8_t* packed_sk, size_t packed_sk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_192_s;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        assert(packed_sk_size == faest::VOLEMAYO_SECRET_SIZE_BYTES<P::secpar_v>);
+        return vole_prove_2<P>(proof, chal1, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block128*)iv_pre, iv_pre_size, (faest::block_secpar<P::secpar_v>*)forest, 
+                            (unsigned char*)hashed_leaves, packed_pk, packed_sk, r_additional);
+    }
+    bool mayo192sv1_verify( const uint8_t* proof, size_t proof_size,
+                            const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_192_s;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
         assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, rain_rc, rain_mat, r_additional);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        
+        return vole_verify<P>(proof, proof_size, packed_pk, packed_pk_size, r_additional);
     }
 
 
-    bool rainhash_then_mayo128fv2_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* msg_hash,
-                uint8_t* rain_rc, uint8_t* rain_mat,
-                uint8_t* s, uint8_t* rand, uint8_t* salt, uint8_t* r_additional) {
-        using P = faest::v2::rainhash_then_mayo_128_f;
+    bool mayo192fv1_prove_1(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* r, size_t r_size,
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            const uint8_t* random_seed, size_t random_seed_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_192_f;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
         
-        return vole_prove<P>(proof, random_seed, random_seed_len, 
-                expanded_pk, msg_hash,
-                rain_rc, rain_mat,
-                s, rand, salt, r_additional);
+        return vole_prove_1<P>(chal1, r, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block_secpar<P::secpar_v>*)forest, 
+                        (faest::block128*)iv_pre, (unsigned char*)hashed_leaves, proof, random_seed, random_seed_size, r_additional);
     }
-    bool rainhash_then_mayo128fv2_verify( const uint8_t* proof, size_t proof_size,
-                            uint8_t* expanded_pk, uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat, uint8_t* r_additional) {
-        using P = faest::v2::rainhash_then_mayo_128_f;
+    bool mayo192fv1_prove_2(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            uint8_t* packed_pk, size_t packed_pk_size,
+                            const uint8_t* packed_sk, size_t packed_sk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_192_f;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        assert(packed_sk_size == faest::VOLEMAYO_SECRET_SIZE_BYTES<P::secpar_v>);
+        return vole_prove_2<P>(proof, chal1, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block128*)iv_pre, iv_pre_size, (faest::block_secpar<P::secpar_v>*)forest, 
+                            (unsigned char*)hashed_leaves, packed_pk, packed_sk, r_additional);
+    }
+    bool mayo192fv1_verify( const uint8_t* proof, size_t proof_size,
+                            const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_192_f;
         using CP = P::CONSTS;
         constexpr auto S = P::secpar_v;
         assert(proof_size == VOLE_PROOF_BYTES<P>);
-
-
-        return vole_verify<P>(proof, proof_size, expanded_pk, msg_hash, rain_rc, rain_mat, r_additional);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        
+        return vole_verify<P>(proof, proof_size, packed_pk, packed_pk_size, r_additional);
     }
 }
-#endif
+// 256s/f
+extern "C" {
+    bool mayo256sv1_prove_1(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* r, size_t r_size,
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            const uint8_t* random_seed, size_t random_seed_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_256_s;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        
+        return vole_prove_1<P>(chal1, r, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block_secpar<P::secpar_v>*)forest, 
+                        (faest::block128*)iv_pre, (unsigned char*)hashed_leaves, proof, random_seed, random_seed_size, r_additional);
+    }
+    bool mayo256sv1_prove_2(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            uint8_t* packed_pk, size_t packed_pk_size,
+                            const uint8_t* packed_sk, size_t packed_sk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_256_s;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        assert(packed_sk_size == faest::VOLEMAYO_SECRET_SIZE_BYTES<P::secpar_v>);
+        return vole_prove_2<P>(proof, chal1, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block128*)iv_pre, iv_pre_size, (faest::block_secpar<P::secpar_v>*)forest, 
+                            (unsigned char*)hashed_leaves, packed_pk, packed_sk, r_additional);
+    }
+    bool mayo256sv1_verify( const uint8_t* proof, size_t proof_size,
+                            const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_256_s;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        
+        return vole_verify<P>(proof, proof_size, packed_pk, packed_pk_size, r_additional);
+    }
 
-    // clang-format on
+
+    bool mayo256fv1_prove_1(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* r, size_t r_size,
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            const uint8_t* random_seed, size_t random_seed_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_256_f;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(r_size == VOLEMAYO_R_BYTES<S>);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        
+        return vole_prove_1<P>(chal1, r, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block_secpar<P::secpar_v>*)forest, 
+                        (faest::block128*)iv_pre, (unsigned char*)hashed_leaves, proof, random_seed, random_seed_size, r_additional);
+    }
+    bool mayo256fv1_prove_2(uint8_t* chal1, size_t chal1_size, 
+                            uint8_t* u, size_t u_size, 
+                            uint8_t* v, size_t v_size, 
+                            uint8_t* forest, size_t forest_size,
+                            uint8_t* iv_pre, size_t iv_pre_size,
+                            uint8_t* hashed_leaves, size_t hashed_leaves_size,
+                            uint8_t* proof, size_t proof_size,
+                            uint8_t* packed_pk, size_t packed_pk_size,
+                            const uint8_t* packed_sk, size_t packed_sk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_256_f;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(chal1_size == CP::VOLE_CHECK::CHALLENGE_BYTES);
+        assert(u_size == CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(v_size == P::secpar_bits * CP::VOLE_COL_BLOCKS * sizeof(faest::vole_block));
+        assert(forest_size == P::bavc_t::COMMIT_NODES * sizeof(faest::block_secpar<S>));
+        assert(iv_pre_size == sizeof(faest::block128));
+        assert(hashed_leaves_size == P::bavc_t::COMMIT_LEAVES * P::leaf_hash_t::hash_len);
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        assert(packed_sk_size == faest::VOLEMAYO_SECRET_SIZE_BYTES<P::secpar_v>);
+        return vole_prove_2<P>(proof, chal1, (faest::vole_block*)u, (faest::vole_block*)v, (faest::block128*)iv_pre, iv_pre_size, (faest::block_secpar<P::secpar_v>*)forest, 
+                            (unsigned char*)hashed_leaves, packed_pk, packed_sk, r_additional);
+    }
+    bool mayo256fv1_verify( const uint8_t* proof, size_t proof_size,
+                            const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional) {
+        using P = faest::v1::mayo_256_f;
+        using CP = P::CONSTS;
+        constexpr auto S = P::secpar_v;
+        assert(proof_size == VOLE_PROOF_BYTES<P>);
+        assert(packed_pk_size == faest::VOLEMAYO_PUBLIC_SIZE_BYTES<P::secpar_v>);
+        
+        return vole_verify<P>(proof, proof_size, packed_pk, packed_pk_size, r_additional);
+    }
+}
 
 } // namespace faest

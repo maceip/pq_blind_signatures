@@ -20,7 +20,7 @@ constexpr std::size_t FAEST_PROOF_BYTES =
 
 template <typename P, bool verifier>
 void owf_constraints(quicksilver_state<P::secpar_v, verifier, P::OWF_CONSTS::QS_DEGREE>* state,
-                     const public_key<P>* pk, unsigned char* chal2);
+                     const public_key<P>* pk, unsigned char *chal2);
 
 } // namespace faest
 

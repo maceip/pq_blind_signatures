@@ -9,8 +9,11 @@ fn main() {
     if !status.success() {
         panic!("Makefile execution failed");
     }
-    println!("cargo:rustc-link-search=target/debug");
+    let manifest_dir = env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR");
+    let lib_dir = PathBuf::from(&manifest_dir).join("target/debug");
+    println!("cargo:rustc-link-search=native={}", lib_dir.display());
     println!("cargo:rustc-link-lib=volemayo");
+    println!("cargo:rustc-env=LD_LIBRARY_PATH={}", lib_dir.display());
 
     println!("cargo:rerun-if-changed=wrapper.h");
 

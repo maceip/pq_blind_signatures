@@ -17,6 +17,7 @@ constexpr uint32_t gf768_modulus = (1 << 19) | (1 << 17) | (1 << 4) | 1; // degr
 
 
 extern const unsigned char gf8_in_gf128[7][16];
+extern const unsigned char gf8_in_gf128[7][16];
 extern const unsigned char gf8_in_gf192[7][24];
 extern const unsigned char gf8_in_gf256[7][32];
 
@@ -24,9 +25,6 @@ extern const unsigned char gf8_in_gf256[7][32];
 extern const unsigned char gf4_in_gf128[3][16];
 extern const unsigned char gf4_in_gf192[3][24];
 extern const unsigned char gf4_in_gf256[3][32];
-
-extern const unsigned char gf128_in_gf512[3][64];
-extern const unsigned char gf128_in_gf128[127][16];
 
 } // namespace faest
 

@@ -94,16 +94,8 @@ struct quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>
     static quicksilver_gfsecpar<quicksilver, deg>
     combine_8_bits(const quicksilver_gf2<quicksilver, deg>* qs_bits);
 
-    #if defined WITH_RAINHASH
-    static quicksilver_gfsecpar<quicksilver, deg>
-    combine_128_bits(const quicksilver_gf2<quicksilver, deg>* qs_bits);
-    #endif
-
     static quicksilver_gfsecpar<quicksilver, deg>
     combine_4_bits(const quicksilver_gf2<quicksilver, deg>* qs_bits);
-
-    static quicksilver_gfsecpar<quicksilver, deg>
-    combine_1_bit(const quicksilver_gf2<quicksilver, deg>* qs_bits);
 };
 
 template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
@@ -241,16 +233,8 @@ struct quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>
     static quicksilver_gfsecpar<quicksilver, deg>
     combine_8_bits(const quicksilver_gf2<quicksilver, deg>* qs_bits);
 
-    #if defined WITH_RAINHASH
-    static quicksilver_gfsecpar<quicksilver, deg>
-    combine_128_bits(const quicksilver_gf2<quicksilver, deg>* qs_bits);
-    #endif
-
     static quicksilver_gfsecpar<quicksilver, deg>
     combine_4_bits(const quicksilver_gf2<quicksilver, deg>* qs_bits);
-
-    static quicksilver_gfsecpar<quicksilver, deg>
-    combine_1_bit(const quicksilver_gf2<quicksilver, deg>* qs_bits);
 };
 
 template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
@@ -533,18 +517,6 @@ public:
         return qs_bits;
     }
 
-    #if defined WITH_RAINHASH
-    // load 128 consecutive bits from the witness
-    inline std::array<quicksilver_gf2<quicksilver_state>, 128>
-    load_witness_128_bits(size_t bit_index) const
-    {
-        auto qs_bits = const_gf2_array<128>();
-        for (size_t bit_j = 0; bit_j < 128; ++bit_j)
-            qs_bits[bit_j] = get_witness_bit(bit_index + bit_j);
-        return qs_bits;
-    }
-    #endif
-
     // The 4 bit thingy
     // load 4 consecutive bits from the witness
     inline std::array<quicksilver_gf2<quicksilver_state>, 4>
@@ -554,16 +526,6 @@ public:
         for (size_t bit_j = 0; bit_j < 4; ++bit_j) {
             qs_bits[bit_j] = get_witness_bit(bit_index + bit_j);
         }
-        return qs_bits;
-    }
-
-    // The 1 bit thingy
-    // load 1 bit from the witness
-    inline std::array<quicksilver_gf2<quicksilver_state>, 1>
-    load_witness_1_bit(size_t bit_index) const
-    {
-        auto qs_bits = const_gf2_array<1>();
-        qs_bits[0] = get_witness_bit(bit_index);
         return qs_bits;
     }
     
@@ -576,17 +538,6 @@ public:
         return quicksilver_gfsecpar<quicksilver_state>::combine_8_bits(input_bits.data());
     }
 
-    #if defined WITH_RAINHASH
-    // load 128 consecutive bits from the witness and combine them into a GF(2^secpar) value in the
-    // GF(2^8) subfield
-    inline quicksilver_gfsecpar<quicksilver_state>
-    load_witness_128_bits_and_combine(size_t bit_index) const
-    {
-        auto input_bits = load_witness_128_bits(bit_index);
-        return quicksilver_gfsecpar<quicksilver_state>::combine_128_bits(input_bits.data());
-    }
-    #endif
-
     // the 4 bit thingy
     // load 4 consecutive bits from the witness and combine them into a GF(2^secpar) value in the
     // GF(2^8) subfield
@@ -595,15 +546,6 @@ public:
     {
         auto input_bits = load_witness_4_bits(bit_index);
         return quicksilver_gfsecpar<quicksilver_state>::combine_4_bits(input_bits.data());
-    }
-
-    // the 1 bit thingy
-    // load 1 bit from the witness and combine them into a GF(2^secpar) value in the
-    inline quicksilver_gfsecpar<quicksilver_state>
-    load_witness_1_bit_and_combine(size_t bit_index) const
-    {
-        auto input_bits = load_witness_1_bit(bit_index);
-        return quicksilver_gfsecpar<quicksilver_state>::combine_1_bit(input_bits.data());
     }
 
     // Add a constraint of the form x == 0.
@@ -860,36 +802,6 @@ operator*(const quicksilver_gf2<QS, deg_a>& a, const quicksilver_gf2<QS, deg_b>&
     return out;
 }
 
-#if defined WITH_RAINHASH
-template <typename QS, size_t deg>
-inline quicksilver_gf2<QS, deg>
-AND_GF2_CONST(const quicksilver_gf2<QS, deg>& a, uint8_t bit)
-{
-    quicksilver_gf2<QS, deg> out(0, a);
-    if constexpr (!QS::is_verifier)
-    {
-        uint8_t mask[16];
-        memset(mask, bit*0xff, 16);    // all 0x01 or all 0x00
-        poly<128> maskpoly = poly<128>::load(mask);
-
-        // out.mac.coeffs[0] = (a.mac.coeffs[0] * maskpoly).template reduce_to<QS::secpar_bits>();
-        out.mac.coeffs[0].data = a.mac.coeffs[0].data & maskpoly.data;
-        out.value().data = a.value().data & (bit*0xff);
-    }
-    else
-    {
-        uint8_t mask[16];
-        memset(mask, bit*0xff, 16);    // all 0x01 or all 0x00
-        poly<128> maskpoly = poly<128>::load(mask);
-
-        // out.mac = (quicksilver_gfsecpar<QS, deg>(a).mac * maskpoly).template reduce_to<QS::secpar_bits>();
-        out.mac.data = quicksilver_gfsecpar<QS, deg>(a).mac.data & maskpoly.data;
-        out.delta_powers = a.delta_powers;
-    }
-    return out;
-}
-#endif
-
 template <typename QS, size_t deg_a, size_t deg_b>
 inline quicksilver_gfsecpar<QS, deg_a + deg_b>
 operator*(const quicksilver_gf2<QS, deg_b>& a, const quicksilver_gfsecpar<QS, deg_a>& b)
@@ -954,34 +866,6 @@ quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>::combine_8_bits(
 
     return out;
 }
-
-#if defined WITH_RAINHASH
-// NEW
-// The 128 bits lifting (prover)
-template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
-quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>
-quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>::combine_128_bits(
-    const quicksilver_gf2<quicksilver_state<S, false, max_deg>, deg>* qs_bits)
-{
-    quicksilver_gfsecpar<quicksilver, deg> out(0, qs_bits[0]);
-
-    for (size_t i = 0; i < deg; ++i)
-    {
-        poly_secpar<S> macs[128];
-        for (size_t j = 0; j < 128; ++j)
-            macs[j] = qs_bits[j].mac.coeffs[i];
-        out.mac.coeffs[i] = poly_secpar<S>::from_128_self(macs);
-    }
-
-    poly1 bits[128];
-    for (size_t j = 0; j < 128; ++j)
-        bits[j] = qs_bits[j].value();
-    out.value() = poly_secpar<S>::from_128_poly1(bits);
-
-    return out;
-}
-#endif
-
 // The 4 bits lifting (prover)
 template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
 quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>
@@ -1006,28 +890,6 @@ quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>::combine_4_bits(
     return out;
 }
 
-// The 1 bit lifting (prover)
-template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
-quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>
-quicksilver_gfsecpar<quicksilver_state<S, false, max_deg>, deg>::combine_1_bit(
-    const quicksilver_gf2<quicksilver_state<S, false, max_deg>, deg>* qs_bits)
-{
-    quicksilver_gfsecpar<quicksilver, deg> out(0, qs_bits[0]);
-
-    for (size_t i = 0; i < deg; ++i)
-    {
-        poly_secpar<S> mac[1];
-        mac[0] = qs_bits[0].mac.coeffs[i];
-        out.mac.coeffs[i] = poly_secpar<S>::from_1_self(mac);
-    }
-
-    poly1 bit[1];
-    bit[0] = qs_bits[0].value();
-    out.value() = poly_secpar<S>::from_1_poly1(bit);
-
-    return out;
-}
-
 
 template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
 quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>
@@ -1043,26 +905,6 @@ quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>::combine_8_bits(
 
     return out;
 }
-
-#if defined WITH_RAINHASH
-// NEW
-// The 128 bits lifting (verifier)
-template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
-quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>
-quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>::combine_128_bits(
-    const quicksilver_gf2<quicksilver_state<S, true, max_deg>, deg>* qs_bits)
-{
-    quicksilver_gfsecpar<quicksilver, deg> out(0, qs_bits[0]);
-
-    poly_secpar<S> macs[128];
-    for (size_t i = 0; i < 128; ++i)
-        macs[i] = qs_bits[i].mac;
-    out.mac = poly_secpar<S>::from_128_self(macs);
-
-    return out;
-}
-#endif
-
 // The 4 bits lifting (verifier)
 template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
 quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>
@@ -1075,21 +917,6 @@ quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>::combine_4_bits(
     for (size_t i = 0; i < 4; ++i)
         macs[i] = qs_bits[i].mac;
     out.mac = poly_secpar<S>::from_4_self(macs);
-
-    return out;
-}
-
-// The 1 bit lifting (verifier)
-template <secpar S, size_t max_deg, size_t deg> requires (deg <= max_deg)
-quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>
-quicksilver_gfsecpar<quicksilver_state<S, true, max_deg>, deg>::combine_1_bit(
-    const quicksilver_gf2<quicksilver_state<S, true, max_deg>, deg>* qs_bits)
-{
-    quicksilver_gfsecpar<quicksilver, deg> out(0, qs_bits[0]);
-
-    poly_secpar<S> mac[1];
-    mac[0] = qs_bits[0].mac;
-    out.mac = poly_secpar<S>::from_1_self(mac);
 
     return out;
 }

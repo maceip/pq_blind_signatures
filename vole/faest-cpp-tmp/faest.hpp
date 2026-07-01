@@ -23,29 +23,19 @@ constexpr std::size_t VOLE_PROOF_BYTES =
     + P::secpar_bytes + 16 
     + P::grinding_counter_size;
 
-/* 
-#if defined WITH_KECCAK
 template <typename P>
-bool vole_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* cpk, uint8_t* msg_hash,
-                uint8_t* s, uint8_t* rand, uint8_t* salt);
+bool vole_prove_1(uint8_t* chal1, uint8_t* r, faest::vole_block* u, faest::vole_block* v, faest::block_secpar<P::secpar_v>* forest, 
+                    faest::block128* iv_pre, unsigned char* hashed_leaves, uint8_t* proof, 
+                    const uint8_t* random_seed, size_t random_seed_len, uint8_t* r_additional);
 
 template <typename P>
-bool vole_verify(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* cpk, uint8_t* msg_hash);
-#endif
-
-
-#if defined WITH_RAINHASH
-template <typename P>
-bool vole_prove(uint8_t* proof, const uint8_t* random_seed, size_t random_seed_len, 
-                uint8_t* expanded_pk, uint8_t* cpk, uint8_t* msg_hash,
-                uint8_t* rain_rc_qs, uint8_t* rain_mat_qs,
-                uint8_t* s, uint8_t* rand, uint8_t* salt);
+bool vole_prove_2(uint8_t* proof, uint8_t* chal1, faest::vole_block* u, faest::vole_block* v, 
+                        faest::block128* iv_pre, size_t iv_pre_size, faest::block_secpar<P::secpar_v>* forest, 
+                        unsigned char* hashed_leaves, uint8_t* packed_pk, const uint8_t* packed_sk, uint8_t* r_additional);
 
 template <typename P>
-bool vole_verify(const uint8_t* proof, size_t proof_size, uint8_t* expanded_pk, uint8_t* cpk, uint8_t* msg_hash, uint8_t* rain_rc, uint8_t* rain_mat);
-#endif
- */
+bool vole_verify(const uint8_t* proof, size_t proof_size, const uint8_t* packed_pk, size_t packed_pk_size, uint8_t* r_additional);
+
 
 } // namespace faest
 

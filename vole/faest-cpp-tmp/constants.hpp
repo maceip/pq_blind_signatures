@@ -13,7 +13,6 @@ template <std::size_t bits> struct block;
 template <secpar S> using block_secpar = block<secpar_to_bits(S)>;
 using block128 = block<128>;
 
-// AES-related constants
 
 // Number of AES rounds depending on the security parameter
 template <secpar S>
@@ -36,6 +35,7 @@ constexpr std::size_t AES_ROUNDS = []
         static_assert(false, "unsupported security parameter for AES");
     }
 }();
+
 
 // Number of Rijndael rounds depending on the security parameter
 template <secpar S> constexpr std::size_t RIJNDAEL_ROUNDS = AES_ROUNDS<S>;
@@ -69,30 +69,18 @@ constexpr std::size_t FIXED_KEY_PREFERRED_WIDTH = (1 << FIXED_KEY_PREFERRED_WIDT
 // Transpose-related constants
 constexpr std::size_t TRANSPOSE_BITS_ROWS = 1 << TRANSPOSE_BITS_ROWS_SHIFT;
 
+// Template containing constants that depend only on the security parameter and the one-way function
+template <secpar S, owf O> struct OWF_CONSTANTS;
+
 namespace detail
 {
 
-// Compute the number of key schedule constraints for an OWF.
-template <secpar S, owf O> constexpr std::size_t compute_owf_num_key_schedule_constraints()
-{
-    return 0; // This is no key scheduling cntrs in mayo_plus_keccak
-}
 
 // Compute the number of encryption constraints for an OWF.
 template <secpar S, owf O> constexpr std::size_t compute_owf_num_enc_constraints()
 {
-    #if defined WITH_KECCAK
-        constexpr std::size_t mayo_constraints = 1;
-        constexpr std::size_t keccak_constraints = VOLEKECCAK_WITNESS_SIZE_BITS<S>;
-        return mayo_constraints + keccak_constraints;
-    #endif
-
-    #if defined WITH_RAINHASH
-        constexpr std::size_t mayo_constraints = 1;
-        constexpr std::size_t rainhash_constraints = 2 * 4 * 7;
-        return mayo_constraints + rainhash_constraints;
-    #endif
-    
+    //return VOLEMAYO_secpar_polys_per_m_vec<S>;
+    return 1;
 }
 
 // Compute the total number of constraints for an OWF.
@@ -101,117 +89,27 @@ template <secpar S, owf O> constexpr std::size_t compute_owf_num_constraints()
     return compute_owf_num_enc_constraints<S, O>();
 }
 
-template <secpar S, owf O> constexpr std::size_t 
-compute_owf_enc_witness_bits_per_block()
-{
-    // there are no enc witness bits in mayo_plus_keccak
-    return 0;
-}
-
 } // namespace detail
 
 
-// Specialization: Constants for the KECCAK_THEN_MAYO one-way function
+// Specialization: Constants for the MAYO one-way function
 template <secpar S, owf O>
 struct OWF_CONSTANTS
 {
     constexpr static std::size_t OWF_KEY_SCHEDULE_SBOXES = 0;
     constexpr static std::size_t OWF_KEY_SCHEDULE_CONSTRAINTS = 0;
-    #if defined WITH_KECCAK
-        constexpr static std::size_t OWF_KEY_WITNESS_BITS = VOLEMAYO_WITNESS_SIZE_BITS<S> + VOLEKECCAK_WITNESS_SIZE_BITS<S>;//get_witness_bit_size_mayo_plus_keccak(S);
-    #endif
-    #if defined WITH_RAINHASH
-        constexpr static std::size_t OWF_KEY_WITNESS_BITS = VOLEMAYO_WITNESS_SIZE_BITS<S> + VOLERAINHASH_WITNESS_SIZE_BITS<S>;//get_witness_bit_size_mayo_plus_rainhash(S);
-    #endif
+    constexpr static std::size_t OWF_KEY_WITNESS_BITS = VOLEMAYO_WITNESS_SIZE_BITS<S>;//get_witness_bit_size_mayo(S);
     constexpr static std::size_t OWF_BLOCK_SIZE = 1;
     constexpr static std::size_t OWF_BLOCKS = 1;
     constexpr static std::size_t OWF_ROUNDS = 1;
 
-    constexpr static std::size_t DEG0 = 0;
-    constexpr static std::size_t DEG1 = 1;
-    constexpr static std::size_t DEG2 = 2;
-    constexpr static std::size_t DEG3 = 3;
-    constexpr static std::size_t DEG4 = 4;
-    constexpr static std::size_t DEG5 = 5;
-    constexpr static std::size_t DEG6 = 6;
-    constexpr static std::size_t DEG7 = 7;
-    constexpr static std::size_t DEG8 = 8;
-    constexpr static std::size_t DEG9 = 9;
-    constexpr static std::size_t DEG10 = 10;
-    constexpr static std::size_t DEG11 = 11;
-    constexpr static std::size_t DEG12 = 12;
-    constexpr static std::size_t DEG13 = 13;
-    constexpr static std::size_t DEG14 = 14;
-    constexpr static std::size_t DEG15 = 15;
-    constexpr static std::size_t DEG16 = 16;
-
-    constexpr static std::size_t ROTATION_OFFSET[25] = {0, 36, 3, 41, 18, 
-                                                        1, 44, 10, 45, 2,
-                                                        62, 6, 43, 15, 61,
-                                                        28, 55, 25, 21, 56,
-                                                        27, 20, 39, 8, 14,};
-    constexpr static std::size_t ROUND_CONST[24] = {0x0000000000000001,
-                                                    0x0000000000008082,
-                                                    0x800000000000808A,
-                                                    0x8000000080008000,
-                                                    0x000000000000808B,
-                                                    0x0000000080000001,
-                                                    0x8000000080008081,
-                                                    0x8000000000008009,
-                                                    0x000000000000008A,
-                                                    0x0000000000000088,
-                                                    0x0000000080008009,
-                                                    0x000000008000000A,
-                                                    0x000000008000808B,
-                                                    0x800000000000008B,
-                                                    0x8000000000008089,
-                                                    0x8000000000008003,
-                                                    0x8000000000008002,
-                                                    0x8000000000000080,
-                                                    0x000000000000800A,
-                                                    0x800000008000000A,
-                                                    0x8000000080008081,
-                                                    0x8000000000008080,
-                                                    0x0000000080000001,
-                                                    0x8000000080008008,}; 
-
-    #if defined WITH_KECCAK
-    constexpr static std::size_t OWF_ENC_SBOXES = (5*5*VOLEKECCAK_W*VOLEKECCAK_NUM_ROUNDS) + VOLEMAYO_M<S>;
-    #endif
-
-    #if defined WITH_RAINHASH
-    constexpr static std::size_t OWF_ENC_SBOXES = 2 * VOLERAINHASH_NUM_ROUNDS + VOLEMAYO_M<S>;
-    #endif
-
+    constexpr static std::size_t OWF_ENC_SBOXES = VOLEMAYO_M<S>;
     constexpr static std::size_t OWF_ENC_CONSTRAINTS =
         detail::compute_owf_num_enc_constraints<S, O>();
-    constexpr static std::size_t OWF_ENC_WITNESS_BITS_PER_BLOCK =
-        detail::compute_owf_enc_witness_bits_per_block<S, O>();
-    constexpr static std::size_t OWF_ENC_WITNESS_BITS = OWF_BLOCKS * OWF_ENC_WITNESS_BITS_PER_BLOCK;
 
     constexpr static std::size_t OWF_NUM_CONSTRAINTS = detail::compute_owf_num_constraints<S, O>();
-    #if defined WITH_KECCAK
-    constexpr static std::size_t WITNESS_BITS = VOLEMAYO_WITNESS_SIZE_BITS<S> + VOLEKECCAK_WITNESS_SIZE_BITS<S>;
-    #endif
-    #if defined WITH_RAINHASH
-    constexpr static std::size_t WITNESS_BITS = VOLEMAYO_WITNESS_SIZE_BITS<S> + VOLERAINHASH_WITNESS_SIZE_BITS<S>;
-    #endif
-
-    #if defined WITH_KECCAK
-        #if defined KECCAK_DEG_16
-            constexpr static std::size_t QS_DEGREE = 16;
-        #else
-            constexpr static std::size_t QS_DEGREE = 2;
-        #endif
-    #endif
-
-    #if defined WITH_RAINHASH
-        #if defined RAINHASH_INV_NORM
-            constexpr static std::size_t QS_DEGREE = 3;
-        #else
-            constexpr static std::size_t QS_DEGREE = 2;
-        #endif
-    #endif
+    constexpr static std::size_t WITNESS_BITS = VOLEMAYO_WITNESS_SIZE_BITS<S>;
+    constexpr static std::size_t QS_DEGREE = 2;             
 
     using block_t = block_secpar<S>;
 };
@@ -304,9 +202,9 @@ template <typename P> struct CONSTANTS
     constexpr static std::size_t VOLE_WIDTH = 1 << VOLE_WIDTH_SHIFT;
 
     // Compile-time consistency checks
-    // TODO: uncomment this line if required somehow // using check_witness_bits_ = std::enable_if_t<P::OWF_CONSTS::WITNESS_BITS % 8 == 0>;
-    // static_assert(PRG_VOLE_BLOCK_SIZE * 16 == sizeof(typename P::vole_prg_t::block_t), "a
-    // `P::vole_prg_t::block_t` must be 16 * PRG_VOLE_BLOCK_SIZE");
+    // TODO: uncomment this line if required somehow 
+    // using check_witness_bits_ = std::enable_if_t<P::OWF_CONSTS::WITNESS_BITS % 8 == 0>;
+    // static_assert(PRG_VOLE_BLOCK_SIZE * 16 == sizeof(typename P::vole_prg_t::block_t), "a 'P::vole_prg_t::block_t` must be 16 * PRG_VOLE_BLOCK_SIZE");
 };
 
 } // namespace faest
