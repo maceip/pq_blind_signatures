@@ -1,6 +1,6 @@
 use crate::zk::vole_mayo::parameters::VOLEMAYOParameters;
 
-use std::alloc::{alloc_zeroed, Layout};
+use std::alloc::{Layout, alloc_zeroed};
 
 fn aligned_vec(size: usize, align: usize) -> Vec<u8> {
     unsafe {

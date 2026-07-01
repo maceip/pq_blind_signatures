@@ -125,8 +125,12 @@ cp -r "$RAINHASH_PLAIN_DIR" "$RAINHASH_PLAIN_DESTINATION"
 # compiling faest-cpp-tmp with the new added meson.build
 export SHAREDLIBNAME="consv_bs_rainhash"
 export ARFLAGS=rcs
+BUILD_DIR="${FAEST_MESON_BUILD_DIR:-build_debug_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m)}"
 cd faest-cpp-tmp
-# meson setup build_debug --buildtype=debug
-meson setup build_debug --buildtype=release
-cd build_debug
-meson compile
+if [ -d "$BUILD_DIR" ]; then
+  meson setup "$BUILD_DIR" --buildtype=release --reconfigure
+else
+  # meson setup build_debug --buildtype=debug
+  meson setup "$BUILD_DIR" --buildtype=release
+fi
+meson compile -C "$BUILD_DIR"

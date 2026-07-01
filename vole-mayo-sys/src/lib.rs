@@ -8,18 +8,10 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 #[cfg(test)]
 mod vole_proof_test_mayo {
     use crate::{
-        get_mayo128fv1_parameters,  
-        get_mayo128sv1_parameters,
-        get_mayo192fv1_parameters, 
-        get_mayo192sv1_parameters, 
-        get_mayo256fv1_parameters,
-        get_mayo256sv1_parameters, 
-        mayo128fv1_prove_1, 
-        mayo128sv1_prove_1, 
-        mayo192fv1_prove_1, 
-        mayo192sv1_prove_1, 
-        mayo256fv1_prove_1, 
-        mayo256sv1_prove_1, 
+        get_mayo128fv1_parameters, get_mayo128sv1_parameters, get_mayo192fv1_parameters,
+        get_mayo192sv1_parameters, get_mayo256fv1_parameters, get_mayo256sv1_parameters,
+        mayo128fv1_prove_1, mayo128sv1_prove_1, mayo192fv1_prove_1, mayo192sv1_prove_1,
+        mayo256fv1_prove_1, mayo256sv1_prove_1,
     };
 
     type GetParamsFn = unsafe extern "C" fn(

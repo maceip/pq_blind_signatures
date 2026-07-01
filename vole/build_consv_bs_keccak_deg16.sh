@@ -123,8 +123,12 @@ cp "$FAEST_H_SOURCE_FILE" "$FAEST_H_DESTINATION"
 # compiling faest-cpp-tmp with the new added meson.build
 export SHAREDLIBNAME="volekeccak_deg16_then_mayo_bs"
 export ARFLAGS=rcs
+BUILD_DIR="${FAEST_MESON_BUILD_DIR:-build_debug_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m)}"
 cd faest-cpp-tmp
-# meson setup build_debug --buildtype=debug
-meson setup build_debug --buildtype=release
-cd build_debug
-meson compile
+if [ -d "$BUILD_DIR" ]; then
+  meson setup "$BUILD_DIR" --buildtype=release --reconfigure
+else
+  # meson setup build_debug --buildtype=debug
+  meson setup "$BUILD_DIR" --buildtype=release
+fi
+meson compile -C "$BUILD_DIR"
